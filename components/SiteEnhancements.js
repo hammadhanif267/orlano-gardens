@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function SiteEnhancements() {
+  const pathname = usePathname();
   useEffect(() => {
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const controller = new AbortController();
+  const listen = (target, type, handler, options = {}) => target.addEventListener(type, handler, { ...options, signal: controller.signal });
 
   function setBodyLock(locked, className) {
     document.body.classList.toggle(className, locked);
@@ -19,14 +23,14 @@ export default function SiteEnhancements() {
     const dropdownMenu = $("[data-dropdown-menu]");
 
     if (menuButton && nav) {
-      menuButton.addEventListener("click", () => {
+      listen(menuButton, "click", () => {
         const open = menuButton.getAttribute("aria-expanded") !== "true";
         menuButton.setAttribute("aria-expanded", String(open));
         nav.classList.toggle("is-open", open);
         setBodyLock(open, "menu-open");
       });
 
-      nav.addEventListener("click", (event) => {
+      listen(nav, "click", (event) => {
         if (event.target.closest("a") && window.innerWidth <= 960) {
           menuButton.setAttribute("aria-expanded", "false");
           nav.classList.remove("is-open");
@@ -36,7 +40,7 @@ export default function SiteEnhancements() {
     }
 
     if (dropdownButton && dropdownMenu) {
-      dropdownButton.addEventListener("click", (event) => {
+      listen(dropdownButton, "click", (event) => {
         if (window.innerWidth > 960) return;
         event.preventDefault();
         const open = dropdownButton.getAttribute("aria-expanded") !== "true";
@@ -45,7 +49,7 @@ export default function SiteEnhancements() {
       });
     }
 
-    document.addEventListener("keydown", (event) => {
+    listen(document, "keydown", (event) => {
       if (event.key !== "Escape") return;
       if (menuButton && nav) {
         menuButton.setAttribute("aria-expanded", "false");
@@ -58,7 +62,7 @@ export default function SiteEnhancements() {
       }
     });
 
-    window.addEventListener("resize", () => {
+    listen(window, "resize", () => {
       if (window.innerWidth > 960 && menuButton && nav) {
         menuButton.setAttribute("aria-expanded", "false");
         nav.classList.remove("is-open");
@@ -73,7 +77,7 @@ export default function SiteEnhancements() {
       const panel = document.getElementById(panelId);
       if (!panel) return;
 
-      trigger.addEventListener("click", () => {
+      listen(trigger, "click", () => {
         const open = trigger.getAttribute("aria-expanded") === "true";
         trigger.setAttribute("aria-expanded", String(!open));
         panel.hidden = open;
@@ -95,7 +99,7 @@ export default function SiteEnhancements() {
         items.forEach((item) => {
           const category = item.dataset.category || "";
           const haystack = (item.dataset.search || item.textContent).toLowerCase();
-          const categoryMatch = active === "all" || category.split(" ").includes(active);
+          const categoryMatch = active === "all" || category.split(/\s+/).includes(active);
           const textMatch = !term || haystack.includes(term);
           item.hidden = !(categoryMatch && textMatch);
           if (!item.hidden) visible += 1;
@@ -104,7 +108,7 @@ export default function SiteEnhancements() {
       };
 
       buttons.forEach((button) => {
-        button.addEventListener("click", () => {
+        listen(button, "click", () => {
           active = button.dataset.filter || "all";
           buttons.forEach((item) => {
             const selected = item === button;
@@ -115,7 +119,7 @@ export default function SiteEnhancements() {
         });
       });
 
-      if (search) search.addEventListener("input", apply);
+      if (search) listen(search, "input", apply);
       apply();
     });
   }
@@ -142,7 +146,7 @@ export default function SiteEnhancements() {
       if (empty) empty.hidden = visibleCount !== 0;
     };
 
-    input.addEventListener("input", apply);
+    listen(input, "input", apply);
   }
 
   function initScopeRecommender() {
@@ -175,7 +179,7 @@ export default function SiteEnhancements() {
       `;
     };
 
-    form.addEventListener("change", choose);
+    listen(form, "change", choose);
     choose();
   }
 
@@ -214,7 +218,7 @@ export default function SiteEnhancements() {
       const mode = form.dataset.emailForm || "contact";
       const subject = mode === "design" ? "Custom design request" : "Website inquiry";
 
-      form.addEventListener("submit", async (event) => {
+      listen(form, "submit", async (event) => {
         event.preventDefault();
         if (!form.reportValidity()) return;
         const summary = serializeForm(form);
@@ -242,7 +246,7 @@ export default function SiteEnhancements() {
     const upload = $('[data-image-upload]');
     const preview = $('[data-upload-preview]');
     if (upload && preview) {
-      upload.addEventListener("change", () => {
+      listen(upload, "change", () => {
         preview.innerHTML = "";
         const files = Array.from(upload.files || []).slice(0, 6);
         files.forEach((file) => {
@@ -250,7 +254,7 @@ export default function SiteEnhancements() {
           const image = document.createElement("img");
           image.alt = `Selected file preview: ${file.name}`;
           image.src = URL.createObjectURL(file);
-          image.addEventListener("load", () => URL.revokeObjectURL(image.src), { once: true });
+          listen(image, "load", () => URL.revokeObjectURL(image.src), { once: true });
           preview.append(image);
         });
       });
@@ -287,15 +291,15 @@ export default function SiteEnhancements() {
     }
 
     $$('[data-cookie-accept]').forEach((button) => {
-      button.addEventListener("click", () => saveChoice({ analytics: true, advertising: true }));
+      listen(button, "click", () => saveChoice({ analytics: true, advertising: true }));
     });
 
     $$('[data-cookie-reject]').forEach((button) => {
-      button.addEventListener("click", () => saveChoice({ analytics: false, advertising: false }));
+      listen(button, "click", () => saveChoice({ analytics: false, advertising: false }));
     });
 
     $$('[data-cookie-open]').forEach((button) => {
-      button.addEventListener("click", () => {
+      listen(button, "click", () => {
         if (!dialog) return;
         const choice = readChoice();
         if (analytics) analytics.checked = Boolean(choice && choice.analytics);
@@ -308,14 +312,14 @@ export default function SiteEnhancements() {
     });
 
     $$('[data-cookie-close]').forEach((button) => {
-      button.addEventListener("click", () => {
+      listen(button, "click", () => {
         if (dialog) dialog.close();
       });
     });
 
     if (dialog) {
-      dialog.addEventListener("close", () => setBodyLock(false, "dialog-open"));
-      dialog.addEventListener("click", (event) => {
+      listen(dialog, "close", () => setBodyLock(false, "dialog-open"));
+      listen(dialog, "click", (event) => {
         const rect = dialog.getBoundingClientRect();
         const outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
         if (outside) dialog.close();
@@ -323,7 +327,7 @@ export default function SiteEnhancements() {
     }
 
     $$('[data-cookie-save]').forEach((button) => {
-      button.addEventListener("click", () => {
+      listen(button, "click", () => {
         saveChoice({
           analytics: analytics ? analytics.checked : false,
           advertising: advertising ? advertising.checked : false
@@ -358,7 +362,7 @@ export default function SiteEnhancements() {
     };
 
     let ticking = false;
-    window.addEventListener("scroll", () => {
+    listen(window, "scroll", () => {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(() => {
@@ -372,7 +376,7 @@ export default function SiteEnhancements() {
     updateToc();
 
     $$('[data-copy-link]').forEach((button) => {
-      button.addEventListener("click", async () => {
+      listen(button, "click", async () => {
         try {
           await copyText(window.location.href);
           const original = button.textContent;
@@ -385,42 +389,20 @@ export default function SiteEnhancements() {
     });
   }
 
-  function initReveal() {
-    const elements = $$('[data-reveal]');
-    if (!elements.length) return;
-    elements.forEach((element) => element.classList.add("reveal"));
-
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      elements.forEach((element) => element.classList.add("is-visible"));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -40px" });
-
-    elements.forEach((element) => observer.observe(element));
-  }
-
   function initMisc() {
     $$('[data-current-year]').forEach((node) => { node.textContent = String(new Date().getFullYear()); });
 
-    $$('[data-print]').forEach((button) => button.addEventListener("click", () => window.print()));
+    $$('[data-print]').forEach((button) => listen(button, "click", () => window.print()));
 
     const backButton = $('[data-go-back]');
     if (backButton) {
-      backButton.addEventListener("click", () => {
+      listen(backButton, "click", () => {
         if (window.history.length > 1) window.history.back();
       });
     }
   }
 
 
-    initNavigation();
     initAccordions();
     initFiltering();
     initFaqSearch();
@@ -428,9 +410,10 @@ export default function SiteEnhancements() {
     initForms();
     initCookieControls();
     initArticleTools();
-    initReveal();
     initMisc();
-  }, []);
+
+    return () => controller.abort();
+  }, [pathname]);
 
   return null;
 }

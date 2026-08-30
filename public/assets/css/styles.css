@@ -2730,3 +2730,108 @@ main#main-content {
     margin-bottom: 2rem;
   }
 }
+
+/* ===== Final performance, image sizing & responsive polish ===== */
+html { scroll-padding-top: calc(var(--header-h, 76px) + 12px); }
+body { overflow-x: hidden; }
+
+/* Keep image dimensions stable and avoid layout shifts while assets decode. */
+img { max-width: 100%; }
+.media-card img, .comparison-card img, .guide-card img, .image-frame img, .hero__image, .image-frame > img {
+  display: block;
+}
+
+/* Restore a compact, professional service-card proportion. */
+.section .grid.grid--3 .media-card {
+  height: 400px;
+  min-height: 400px;
+  aspect-ratio: 5 / 4;
+}
+@media (max-width: 960px) {
+  .section .grid.grid--3 .media-card { height: 360px; min-height: 360px; }
+}
+@media (max-width: 560px) {
+  .section .grid.grid--3 .media-card { height: 310px; min-height: 310px; }
+}
+
+/* Legal pages: maximum contrast for body copy and CTA cards. */
+.legal-hero .lead,
+.legal-hero .card p,
+.legal-hero .card li { color: #fff !important; }
+.legal-hero .card { color: #fff; }
+.legal-hero .card h2,
+.legal-hero .card h3 { color: #fff; }
+.legal-hero .card .btn--gold { background: var(--gold); color: #000; }
+
+/* Contact email must stay pure white on the dark contact card. */
+.card--dark h2 { color: #fff; }
+
+/* Project filters: selected state is the only filled/highlighted filter. */
+.filter-btn { transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
+.filter-btn.is-active { background: var(--green); color: #fff; border-color: var(--green); }
+.filter-btn:not(.is-active):hover { background: rgba(14,42,29,.08); color: var(--green); }
+
+/* Stable project/guide image proportions. */
+.project-grid .comparison-card { overflow: hidden; }
+.project-grid .comparison-card > img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.guide-card > img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.image-frame > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Above-the-fold pages: keep the opening hero compact enough for the CTA to be visible. */
+main#main-content > .hero {
+  min-height: calc(100svh - var(--header-h, 76px));
+  display: grid;
+  align-items: center;
+  padding-block: clamp(2rem, 4vw, 4rem);
+}
+main#main-content > .hero .hero__grid { width: 100%; }
+@media (max-width: 960px) {
+  main#main-content > .hero { min-height: auto; display: block; padding-block: 2rem 2.5rem; }
+}
+
+/* Navigation drawer never pushes page content; it overlays it. */
+@media (max-width: 960px) {
+  .site-header .site-nav { position: fixed; top: 0; right: 0; bottom: 0; height: 100svh; overflow-y: auto; overscroll-behavior: contain; }
+  .nav-backdrop { position: fixed; inset: 0; }
+  .site-nav__list { width: 100%; }
+  .site-nav__cta { width: 100%; justify-content: center; }
+}
+
+/* Route loading overlay: use a real overlay for client navigation, not just a header bar. */
+.navigation-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  height: auto;
+  display: grid;
+  place-items: center;
+  background: rgba(14,42,29,.82);
+  backdrop-filter: blur(5px);
+}
+.navigation-loading__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 4px;
+  background: var(--gold, #c99a3a);
+}
+.navigation-loading__text {
+  position: static;
+  padding: .7rem 1rem;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,.96);
+  color: #111;
+  box-shadow: 0 14px 40px rgba(0,0,0,.2);
+}
+
+/* Footer stays usable on narrow screens. */
+@media (max-width: 700px) {
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  .site-footer__intro { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .site-footer__grid { grid-template-columns: 1fr; }
+  .site-footer__intro { grid-column: auto; }
+}
