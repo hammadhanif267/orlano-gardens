@@ -2702,3 +2702,226 @@ button, input, select, textarea {
     overflow-wrap: anywhere;
   }
 }
+
+
+/* FINAL RESPONSIVE SYSTEM — all pages */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+main, header, footer, section, article, aside, nav, div {
+  min-width: 0;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+.container {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.grid, .split, .proof-strip, .process-line {
+  width: 100%;
+  min-width: 0;
+}
+
+.grid > *, .split > *, .proof-strip > *, .process-line > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.media-card, .card, .comparison-card, .service-card,
+.media-card__body, .card__body, .section-heading {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.media-card img, .service-card img, .comparison-card img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  min-width: 0;
+}
+
+.btn {
+  min-height: 44px;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+input, textarea, select {
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: min(100% - 40px, 900px);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-strip,
+  .process-line {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-heading {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 32px, 620px);
+  }
+
+  .grid,
+  .grid--2,
+  .grid--3,
+  .split,
+  .proof-strip,
+  .process-line {
+    grid-template-columns: 1fr !important;
+  }
+
+  .section {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading > * + * {
+    margin-top: .75rem;
+  }
+
+  .media-card,
+  .service-card,
+  .card,
+  .comparison-card {
+    width: 100%;
+  }
+
+  .media-card img,
+  .service-card img,
+  .comparison-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .btn-row .btn,
+  .btn-row a,
+  .btn-row button {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 46px;
+    padding: .8rem 1rem;
+  }
+
+  .site-nav__list {
+    width: 100%;
+  }
+
+  .site-nav__list li,
+  .site-nav__list a {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero, .hero__inner, .hero-content, .hero__content {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  h1, h2, h3, p, li, a, span {
+    overflow-wrap: anywhere;
+  }
+
+  .comparison-card__labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: clamp(1.55rem, 7vw, 2.25rem);
+  }
+
+  h3 {
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+  }
+
+  .btn {
+    font-size: .94rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    width: calc(100% - 20px);
+  }
+}
