@@ -1,0 +1,8 @@
+OG IMAGE
+
+Add your social sharing image at:
+public/og-image.jpg
+
+Recommended size: 1200 x 630 px.
+Recommended format: JPG (or PNG if preferred, but keep the filename/path above).
+The Next.js metadata is already configured to use /og-image.jpg for Open Graph and Twitter cards.
