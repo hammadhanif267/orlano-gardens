@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const services = [
   ["00", "All Services", "Choose the right project scope", "/services"],
@@ -18,16 +18,14 @@ const primaryNav = [
   ["About", "/about"],
   ["Projects", "/portfolio"],
   ["Pricing", "/pricing"],
-  ["Contact Us", "/contact"],
-  ["Garden Guidelines", "/garden-guides"],
+  ["Garden Guides", "/garden-guides"],
+  ["Contact", "/contact"],
 ];
 
 export default function Header() {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
-  const loadingTimer = useRef(null);
 
   const isActive = (href) => href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
   const servicesActive = pathname.startsWith("/services");
@@ -35,23 +33,7 @@ export default function Header() {
   useEffect(() => {
     setOpen(false);
     setServicesOpen(false);
-    // Keep the transition indicator visible briefly after the new route mounts,
-    // so fast client-side navigations still give clear loading feedback.
-    if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
-    loadingTimer.current = window.setTimeout(() => setIsNavigating(false), 450);
-    return () => {
-      if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
-    };
   }, [pathname]);
-
-  useEffect(() => {
-    // Give a hard refresh the same branded loading treatment.
-    setIsNavigating(true);
-    loadingTimer.current = window.setTimeout(() => setIsNavigating(false), 650);
-    return () => {
-      if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
-    };
-  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", open);
@@ -68,15 +50,6 @@ export default function Header() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
-
-  const handleNavigate = (event) => {
-    if (event.defaultPrevented) return;
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
-    setIsNavigating(true);
-    setOpen(false);
-    setServicesOpen(false);
-  };
 
   return (
     <header className="site-header" data-site-header="">
@@ -100,12 +73,16 @@ export default function Header() {
           <span className="menu-toggle__lines" aria-hidden="true"><i></i><i></i><i></i></span>
         </button>
 
-        <div className={`nav-backdrop${open ? " is-open" : ""}`} aria-hidden="true" onClick={() => { setOpen(false); setServicesOpen(false); }} />
+        <div className={`nav-backdrop${open ? " is-open" : ""}`} aria-hidden="true" onClick={() => setOpen(false)} />
 
         <nav className={`site-nav${open ? " is-open" : ""}`} id="site-navigation" aria-label="Primary navigation">
           <ul className="site-nav__list">
-            <li><Link className="site-nav__link" href="/" onClick={handleNavigate} aria-current={isActive("/") ? "page" : undefined}>Home</Link></li>
-            <li><Link className="site-nav__link" href="/about" onClick={handleNavigate} aria-current={isActive("/about") ? "page" : undefined}>About</Link></li>
+            {primaryNav.slice(0, 2).map(([label, href]) => (
+              <li key={href}>
+                <Link className="site-nav__link" href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</Link>
+              </li>
+            ))}
+
             <li className={`nav-dropdown${servicesActive ? " is-active" : ""}`}>
               <button
                 className="nav-dropdown__trigger"
@@ -119,7 +96,7 @@ export default function Header() {
               </button>
               <div className={`nav-dropdown__menu${servicesOpen ? " is-open" : ""}`} id="services-menu">
                 {services.map(([number, title, copy, href]) => (
-                  <Link href={href} key={href} onClick={(event) => { handleNavigate(event); }}>
+                  <Link href={href} key={href} onClick={() => setOpen(false)}>
                     <span className="nav-number">{number}</span>
                     <span className="nav-copy"><strong>{title}</strong><small>{copy}</small></span>
                   </Link>
@@ -127,20 +104,14 @@ export default function Header() {
               </div>
             </li>
 
-            <li><Link className="site-nav__link" href="/portfolio" onClick={handleNavigate} aria-current={isActive("/portfolio") ? "page" : undefined}>Projects</Link></li>
-            <li><Link className="site-nav__link" href="/pricing" onClick={handleNavigate} aria-current={isActive("/pricing") ? "page" : undefined}>Pricing</Link></li>
-            <li><Link className="site-nav__link" href="/contact" onClick={handleNavigate} aria-current={isActive("/contact") ? "page" : undefined}>Contact Us</Link></li>
-            <li><Link className="site-nav__link" href="/garden-guides" onClick={handleNavigate} aria-current={isActive("/garden-guides") ? "page" : undefined}>Garden Guidelines</Link></li>
+            {primaryNav.slice(2).map(([label, href]) => (
+              <li key={href}>
+                <Link className="site-nav__link" href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</Link>
+              </li>
+            ))}
           </ul>
-          <Link className="btn btn--primary btn--sm site-nav__cta" href="/get-custom-design" onClick={handleNavigate}>Get Your Custom Design</Link>
+          <Link className="btn btn--primary btn--sm site-nav__cta" href="/get-custom-design" onClick={() => setOpen(false)}>Get Your Custom Design</Link>
         </nav>
-
-        {isNavigating && (
-          <div className="navigation-loading" role="status" aria-live="polite">
-            <div className="navigation-loading__bar" />
-            <span className="navigation-loading__text">Loading your garden view…</span>
-          </div>
-        )}
       </div>
     </header>
   );

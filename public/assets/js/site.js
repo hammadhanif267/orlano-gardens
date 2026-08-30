@@ -383,7 +383,7 @@
   }
 
   function initReveal() {
-    const elements = $$('[className="reveal" data-reveal=""]');
+    const elements = $$('[data-reveal]');
     if (!elements.length) return;
     elements.forEach((element) => element.classList.add("reveal"));
 

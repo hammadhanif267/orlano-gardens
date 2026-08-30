@@ -3,7 +3,7 @@ export default function CookieControls() {
 <section className="cookie-banner" aria-label="Cookie notice" data-cookie-banner="" hidden>
 <div className="cookie-banner__grid">
 <div><h2>Choose your cookie settings.</h2><p>Essential storage keeps this site working. Optional analytics and advertising storage remain off unless you allow them.</p></div>
-<div className="cookie-banner__actions"><button className="btn btn--light btn--sm" type="button" data-cookie-open="">Manage</button><button className="btn btn--outline btn--sm" type="button" data-cookie-reject="">Reject optional</button><button className="btn btn--gold btn--sm" type="button" data-cookie-accept="">Accept all</button></div>
+<div className="cookie-banner__actions"><button className="btn btn--light btn--sm" type="button" data-cookie-open="">Manage</button><button className="btn btn--outline btn--sm cookie-reject-optional" type="button" data-cookie-reject="">Reject optional</button><button className="btn btn--gold btn--sm" type="button" data-cookie-accept="">Accept all</button></div>
 </div>
 </section><dialog className="cookie-dialog" aria-labelledby="cookie-title" data-cookie-dialog="">
 <div className="cookie-dialog__inner">
