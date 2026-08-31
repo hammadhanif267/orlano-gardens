@@ -16,7 +16,7 @@ const services = [
 const primaryNav = [
   ["Home", "/"],
   ["About", "/about"],
-  ["Projects", "/portfolio"],
+  ["Projects", "/projects"],
   ["Pricing", "/pricing"],
   ["Contact Us", "/contact"],
   ["Garden Guidelines", "/garden-guides"],
@@ -127,7 +127,8 @@ export default function Header() {
               </div>
             </li>
 
-            <li><Link className="site-nav__link" href="/portfolio" onClick={handleNavigate} aria-current={isActive("/portfolio") ? "page" : undefined}>Projects</Link></li>
+            <li><Link className="site-nav__link" href="/projects" onClick={handleNavigate} aria-current={isActive("/projects") ? "page" : undefined}>Projects</Link></li>
+            <li><Link className="site-nav__link" href="/#testimonials" onClick={handleNavigate}>Testimonials</Link></li>
             <li><Link className="site-nav__link" href="/pricing" onClick={handleNavigate} aria-current={isActive("/pricing") ? "page" : undefined}>Pricing</Link></li>
             <li><Link className="site-nav__link" href="/contact" onClick={handleNavigate} aria-current={isActive("/contact") ? "page" : undefined}>Contact Us</Link></li>
             <li><Link className="site-nav__link" href="/garden-guides" onClick={handleNavigate} aria-current={isActive("/garden-guides") ? "page" : undefined}>Garden Guidelines</Link></li>

@@ -16,7 +16,7 @@ export default function Footer() {
             <Link href="/services/front-yard-design">Front Yard</Link><Link href="/services/backyard-design">Backyard</Link><Link href="/services/garden-bed-entry">Garden Bed + Entry</Link><Link href="/services/patio-outdoor-living">Patio + Outdoor Living</Link><Link href="/services/multi-area-property">Multi-Area Property</Link>
           </div>
           <div className="footer-column"><strong>Explore</strong>
-            <Link href="/portfolio">Projects</Link><Link href="/pricing">Pricing</Link><Link href="/garden-guides">Garden Guides</Link><Link href="/faq">FAQ</Link><Link href="/site-map">Site Map</Link>
+            <Link href="/projects">Projects</Link><Link href="/pricing">Pricing</Link><Link href="/garden-guides">Garden Guides</Link><Link href="/faq">FAQ</Link><Link href="/site-map">Site Map</Link>
           </div>
           <div className="footer-column"><strong>Information</strong>
             <Link href="/about">About</Link><Link href="/contact">Contact</Link><Link href="/privacy-policy">Privacy Policy</Link><Link href="/terms-of-service">Terms of Service</Link><Link href="/cookie-policy">Cookie Policy</Link><Link href="/disclaimer">Disclaimer</Link><Link href="/accessibility">Accessibility</Link>

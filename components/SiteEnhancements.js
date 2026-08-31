@@ -389,6 +389,107 @@ export default function SiteEnhancements() {
     });
   }
 
+  function initImageLightbox() {
+    // Only standalone images are enhanced. Images already wrapped in links/buttons
+    // keep their original navigation behavior.
+    const images = $$('img:not(a img):not(button img):not([data-no-lightbox])');
+    if (!images.length) return;
+
+    let overlay = document.getElementById("image-lightbox");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.id = "image-lightbox";
+      overlay.className = "image-lightbox";
+      overlay.hidden = true;
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute("aria-label", "Image preview");
+      overlay.innerHTML = `
+        <div class="image-lightbox__backdrop" data-lightbox-close></div>
+        <div class="image-lightbox__panel" role="document">
+          <button class="image-lightbox__close" type="button" aria-label="Close image preview" data-lightbox-close>×</button>
+          <div class="image-lightbox__media">
+            <img class="image-lightbox__image" alt="" />
+          </div>
+          <div class="image-lightbox__copy">
+            <span class="eyebrow image-lightbox__eyebrow">Digital design image</span>
+            <h2 class="image-lightbox__title"></h2>
+            <p class="image-lightbox__description"></p>
+            <div class="image-lightbox__labels" aria-label="Image context">
+              <span>Original space</span>
+              <span>Digital Design Concept</span>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.append(overlay);
+    }
+
+    const lightboxImage = $(".image-lightbox__image", overlay);
+    const title = $(".image-lightbox__title", overlay);
+    const description = $(".image-lightbox__description", overlay);
+    const labels = $(".image-lightbox__labels", overlay);
+    const closeButtons = $$("[data-lightbox-close]", overlay);
+    let lastFocused = null;
+
+    const isBeforeAfter = (image) => {
+      const value = `${image.alt || ""} ${image.src || ""}`.toLowerCase();
+      return /before|after|comparison|concept/.test(value);
+    };
+
+    const open = (image) => {
+      if (!lightboxImage) return;
+      lastFocused = document.activeElement;
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt || "Orlano Gardens design image";
+
+      const alt = image.alt || "Orlano Gardens design image";
+      title.textContent = alt;
+      description.textContent =
+        "Tap outside the image or use the close button to return to the page. This visual is presented as a digital design concept, not a completed installation.";
+
+      const beforeAfter = isBeforeAfter(image);
+      labels.hidden = !beforeAfter;
+
+      overlay.hidden = false;
+      document.body.classList.add("image-lightbox-open");
+      requestAnimationFrame(() => overlay.classList.add("is-open"));
+      const close = $(".image-lightbox__close", overlay);
+      if (close) close.focus();
+    };
+
+    const close = () => {
+      if (overlay.hidden) return;
+      overlay.classList.remove("is-open");
+      window.setTimeout(() => {
+        overlay.hidden = true;
+        document.body.classList.remove("image-lightbox-open");
+        lightboxImage.removeAttribute("src");
+        if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+      }, 180);
+    };
+
+    images.forEach((image) => {
+      image.classList.add("is-lightbox-image");
+      image.setAttribute("tabindex", "0");
+      image.setAttribute("role", "button");
+      image.setAttribute("aria-label", `Open image: ${image.alt || "design preview"}`);
+
+      listen(image, "click", () => open(image));
+      listen(image, "keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open(image);
+        }
+      });
+    });
+
+    closeButtons.forEach((button) => listen(button, "click", close));
+    listen(document, "keydown", (event) => {
+      if (event.key === "Escape" && !overlay.hidden) close();
+    });
+  }
+
   function initMisc() {
     $$('[data-current-year]').forEach((node) => { node.textContent = String(new Date().getFullYear()); });
 
@@ -410,6 +511,7 @@ export default function SiteEnhancements() {
     initForms();
     initCookieControls();
     initArticleTools();
+    initImageLightbox();
     initMisc();
 
     return () => controller.abort();

@@ -3,14 +3,14 @@ import { buildMetadata } from "@/lib/metadata";
 export const metadata = buildMetadata({
   title: "Backyard Zoning Case Study | Orlano Gardens",
   description: "A detailed digital design case study showing how outdoor rooms were added without sacrificing the open backyard center.",
-  path: "/portfolio/backyard-zoning-case-study"
+  path: "/projects/backyard-zoning-case-study"
 });
 
 const structuredData = {
   "@context":"https://schema.org",
   "@type":"Organization",
   "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/portfolio/backyard-zoning-case-study",
+  "url":"https://orlanogardens.com/projects/backyard-zoning-case-study",
   "email":"orlanogardens@gmail.com",
   "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
   "description":"Remote digital outdoor design created from client-supplied property photos."
