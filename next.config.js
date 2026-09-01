@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  agentRules: false,
   async redirects() {
     return [
       {
@@ -10,6 +11,11 @@ const nextConfig = {
       {
         source: "/portfolio/:path*",
         destination: "/projects/:path*",
+        permanent: true,
+      },
+      {
+        source: "/terms-of-service",
+        destination: "/terms-and-conditions",
         permanent: true,
       },
     ];

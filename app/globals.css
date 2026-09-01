@@ -1,4 +1,4 @@
-@import url("/assets/css/styles.css");
+@import "./base.css";
 
 /* Orlano Gardens — professional responsive layer */
 :root { --header-h: 70px; }
@@ -856,13 +856,9 @@ html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
 /* Click-to-open standalone images / responsive lightbox */
 body.image-lightbox-open { overflow: hidden; }
 
-.is-lightbox-image {
+main img:not(a img):not(button img):not([data-no-lightbox]) {
   cursor: zoom-in;
   transition: transform 180ms ease, opacity 180ms ease;
-}
-.is-lightbox-image:focus-visible {
-  outline: 3px solid var(--gold, #b8944c);
-  outline-offset: 4px;
 }
 
 .image-lightbox {
@@ -1003,7 +999,76 @@ body.image-lightbox-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .image-lightbox,
-  .is-lightbox-image {
+  main img:not(a img):not(button img):not([data-no-lightbox]) {
     transition: none !important;
+  }
+}
+
+/* Supplied transparent brand mark: preserve the complete artwork without cropping. */
+.brand__logo,
+.site-footer .brand__logo {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Dedicated testimonials route. */
+main#main-content > .testimonials-hero {
+  min-height: auto;
+  padding: clamp(3rem, 6vw, 5.5rem) 0;
+}
+
+.testimonial-trust-card {
+  align-self: center;
+}
+
+.testimonial-trust-card h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.testimonial-trust-card__stars {
+  margin-bottom: 1rem;
+  color: var(--gold);
+  font-size: 1.15rem;
+  letter-spacing: .2em;
+}
+
+.testimonials-page__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.testimonials-page__grid .testimonial-card {
+  min-width: 0;
+  height: 100%;
+  flex-basis: auto;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 960px) {
+  main#main-content > .testimonials-hero {
+    padding: 2.75rem 0 !important;
+  }
+
+  .testimonials-page__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  main#main-content > .testimonials-hero {
+    padding: 2rem 0 !important;
+  }
+
+  .testimonials-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials-page__grid .testimonial-card {
+    padding: 1.25rem;
   }
 }

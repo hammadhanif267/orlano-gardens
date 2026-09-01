@@ -1,9 +1,17 @@
+import Image from "next/image";
+
 export default function Loading() {
   return (
     <main className="status-page status-page--loading" aria-busy="true" aria-live="polite">
       <div className="status-card status-card--loading">
         <div className="loading-brand" aria-hidden="true">
-          <img src="/assets/images/orlano-logo.jpg" alt="" />
+          <Image
+            src="/assets/images/orlano-gardens-logo.png"
+            alt=""
+            width={72}
+            height={72}
+            priority
+          />
         </div>
         <p className="eyebrow">Orlano Gardens</p>
         <h1>Preparing your garden view</h1>

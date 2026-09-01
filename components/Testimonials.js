@@ -4,7 +4,7 @@
 // Example:
 // public/assets/images/testimonials/keilana-r.webp
 
-const testimonials = [
+export const testimonials = [
   {
     name: "Keilana R.",
     tag: "Front Yard Design",
@@ -79,7 +79,7 @@ function Stars() {
   );
 }
 
-function TestimonialCard({ item, hidden }) {
+export function TestimonialCard({ item, hidden = false }) {
   return (
     <figure className="testimonial-card" aria-hidden={hidden || undefined}>
       <div className="testimonial-card__head">
@@ -89,6 +89,7 @@ function TestimonialCard({ item, hidden }) {
               src={item.photo}
               alt={`${item.name} testimonial`}
               loading="lazy"
+              data-no-lightbox=""
             />
           </span>
         ) : (
@@ -127,7 +128,7 @@ export default function Testimonials() {
           </div>
 
           <p>
-            Written by real clients and shared through the studio's verified
+            Written by real clients and shared through the studio&apos;s verified
             Etsy shop reviews.
           </p>
         </div>

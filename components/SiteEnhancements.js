@@ -8,67 +8,11 @@ export default function SiteEnhancements() {
   useEffect(() => {
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const controller = new AbortController();
   const listen = (target, type, handler, options = {}) => target.addEventListener(type, handler, { ...options, signal: controller.signal });
 
   function setBodyLock(locked, className) {
     document.body.classList.toggle(className, locked);
-  }
-
-  function initNavigation() {
-    const menuButton = $("[data-menu-toggle]");
-    const nav = $("[data-site-nav]");
-    const dropdownButton = $("[data-dropdown-toggle]");
-    const dropdownMenu = $("[data-dropdown-menu]");
-
-    if (menuButton && nav) {
-      listen(menuButton, "click", () => {
-        const open = menuButton.getAttribute("aria-expanded") !== "true";
-        menuButton.setAttribute("aria-expanded", String(open));
-        nav.classList.toggle("is-open", open);
-        setBodyLock(open, "menu-open");
-      });
-
-      listen(nav, "click", (event) => {
-        if (event.target.closest("a") && window.innerWidth <= 960) {
-          menuButton.setAttribute("aria-expanded", "false");
-          nav.classList.remove("is-open");
-          setBodyLock(false, "menu-open");
-        }
-      });
-    }
-
-    if (dropdownButton && dropdownMenu) {
-      listen(dropdownButton, "click", (event) => {
-        if (window.innerWidth > 960) return;
-        event.preventDefault();
-        const open = dropdownButton.getAttribute("aria-expanded") !== "true";
-        dropdownButton.setAttribute("aria-expanded", String(open));
-        dropdownMenu.classList.toggle("is-open", open);
-      });
-    }
-
-    listen(document, "keydown", (event) => {
-      if (event.key !== "Escape") return;
-      if (menuButton && nav) {
-        menuButton.setAttribute("aria-expanded", "false");
-        nav.classList.remove("is-open");
-        setBodyLock(false, "menu-open");
-      }
-      if (dropdownButton && dropdownMenu) {
-        dropdownButton.setAttribute("aria-expanded", "false");
-        dropdownMenu.classList.remove("is-open");
-      }
-    });
-
-    listen(window, "resize", () => {
-      if (window.innerWidth > 960 && menuButton && nav) {
-        menuButton.setAttribute("aria-expanded", "false");
-        nav.classList.remove("is-open");
-        setBodyLock(false, "menu-open");
-      }
-    });
   }
 
   function initAccordions() {
@@ -180,7 +124,6 @@ export default function SiteEnhancements() {
     };
 
     listen(form, "change", choose);
-    choose();
   }
 
   function serializeForm(form) {
@@ -372,9 +315,6 @@ export default function SiteEnhancements() {
       });
     }, { passive: true });
 
-    updateProgress();
-    updateToc();
-
     $$('[data-copy-link]').forEach((button) => {
       listen(button, "click", async () => {
         try {
@@ -469,19 +409,11 @@ export default function SiteEnhancements() {
       }, 180);
     };
 
-    images.forEach((image) => {
-      image.classList.add("is-lightbox-image");
-      image.setAttribute("tabindex", "0");
-      image.setAttribute("role", "button");
-      image.setAttribute("aria-label", `Open image: ${image.alt || "design preview"}`);
-
-      listen(image, "click", () => open(image));
-      listen(image, "keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          open(image);
-        }
-      });
+    listen(document, "click", (event) => {
+      const image = event.target.closest?.(
+        "img:not(a img):not(button img):not([data-no-lightbox])",
+      );
+      if (image && !image.closest("#image-lightbox")) open(image);
     });
 
     closeButtons.forEach((button) => listen(button, "click", close));
@@ -491,8 +423,6 @@ export default function SiteEnhancements() {
   }
 
   function initMisc() {
-    $$('[data-current-year]').forEach((node) => { node.textContent = String(new Date().getFullYear()); });
-
     $$('[data-print]').forEach((button) => listen(button, "click", () => window.print()));
 
     const backButton = $('[data-go-back]');
@@ -502,7 +432,6 @@ export default function SiteEnhancements() {
       });
     }
   }
-
 
     initAccordions();
     initFiltering();
@@ -514,7 +443,9 @@ export default function SiteEnhancements() {
     initImageLightbox();
     initMisc();
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+    };
   }, [pathname]);
 
   return null;

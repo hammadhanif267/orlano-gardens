@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -39,9 +40,9 @@ export default function Page() {
         <header className="article-header">
           <div className="container">
             <nav className="breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">Home</a>
+              <Link href="/">Home</Link>
               <span>/</span>
-              <a href="/">Garden Guides</a>
+              <Link href="/garden-guides">Garden Guides</Link>
               <span>/</span>
               <span aria-current="page">Materials</span>
             </nav>

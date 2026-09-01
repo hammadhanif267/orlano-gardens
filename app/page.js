@@ -117,7 +117,14 @@ export default function Page() {
                 </a>
               </div>
 
-              {/* 5 STAR FEEDBACK - MOVED UNDER BUTTONS */}
+              <div className="hero__proofs">
+                <span className="chip">Designed from your photos</span>
+
+                <span className="chip">3–5 working days</span>
+
+                <span className="chip">80+ projects</span>
+              </div>
+              {/* 5 Stars Section */}
               <div
                 className="hero-rating"
                 aria-label="5-star feedback from verified Etsy clients"
@@ -126,17 +133,12 @@ export default function Page() {
                   ★★★★★
                 </span>
 
-                <span className="hero-rating__text">
+                <span
+                  className="hero-rating__text"
+                  style={{ fontWeight: "600" }}
+                >
                   5-star feedback from verified Etsy clients
                 </span>
-              </div>
-
-              <div className="hero__proofs">
-                <span className="chip">Designed from your photos</span>
-
-                <span className="chip">3–5 working days</span>
-
-                <span className="chip">80+ projects</span>
               </div>
 
               <p className="service-clarifier">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -38,15 +39,6 @@ const services = [
   ],
 ];
 
-const primaryNav = [
-  ["Home", "/"],
-  ["About", "/about"],
-  ["Projects", "/projects"],
-  ["Pricing", "/pricing"],
-  ["Contact Us", "/contact"],
-  ["Garden Guidelines", "/garden-guides"],
-];
-
 export default function Header() {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
@@ -61,25 +53,19 @@ export default function Header() {
   const servicesActive = pathname.startsWith("/services");
 
   useEffect(() => {
-    setOpen(false);
-    setServicesOpen(false);
+    const closeTimer = window.setTimeout(() => {
+      setOpen(false);
+      setServicesOpen(false);
+    }, 0);
     // Keep the transition indicator visible briefly after the new route mounts,
     // so fast client-side navigations still give clear loading feedback.
     if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
     loadingTimer.current = window.setTimeout(() => setIsNavigating(false), 450);
     return () => {
+      window.clearTimeout(closeTimer);
       if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
     };
   }, [pathname]);
-
-  useEffect(() => {
-    // Give a hard refresh the same branded loading treatment.
-    setIsNavigating(true);
-    loadingTimer.current = window.setTimeout(() => setIsNavigating(false), 650);
-    return () => {
-      if (loadingTimer.current) window.clearTimeout(loadingTimer.current);
-    };
-  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", open);
@@ -117,14 +103,17 @@ export default function Header() {
     <header className="site-header" data-site-header="">
       <div className="container site-header__inner">
         <Link className="brand" href="/" aria-label="Orlano Gardens home">
-          <img
-            src="/assets/images/orlano-logo.jpg"
+          <Image
+            src="/assets/images/orlano-gardens-logo.png"
             alt="Orlano Gardens logo"
             className="brand__logo"
+            width={52}
+            height={52}
+            priority
           />
           <span className="brand__copy">
             <span className="brand__name">ORLANO GARDENS</span>
-            <span className="brand__tag">Remote Outdoor Design</span>
+            <span className="brand__tag">Remote Outdoor Design Service</span>
           </span>
         </Link>
 
@@ -234,8 +223,9 @@ export default function Header() {
             <li>
               <Link
                 className="site-nav__link"
-                href="/#testimonials"
+                href="/testimonials"
                 onClick={handleNavigate}
+                aria-current={isActive("/testimonials") ? "page" : undefined}
               >
                 Testimonials
               </Link>
