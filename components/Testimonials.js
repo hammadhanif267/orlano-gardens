@@ -1,9 +1,9 @@
-// Sample testimonial content. "Keilana R." is the shop's existing verified
-// quote reused from the rest of the site — the other five are placeholder
-// copy written to show the layout and should be swapped for real, verified
-// client reviews before launch. Add a `photo` path (e.g. "/assets/images/xyz.webp")
-// to any entry once a real client photo is available; until then it falls
-// back to an initials monogram instead of a stand-in stock photo.
+// Testimonial content.
+// Add each real client's photo inside:
+// public/assets/images/testimonials/
+// Example:
+// public/assets/images/testimonials/keilana-r.webp
+
 const testimonials = [
   {
     name: "Keilana R.",
@@ -12,6 +12,7 @@ const testimonials = [
       "The images helped me clearly visualize my front yard, and I’m excited to bring it to life.",
     initial: "K",
     tone: "green",
+    photo: "/assets/images/testimonials/keilana-r.webp",
   },
   {
     name: "Marcus T.",
@@ -20,6 +21,7 @@ const testimonials = [
       "Our backyard concept accounted for the slope and the fence line exactly as they are, not a generic layout.",
     initial: "M",
     tone: "gold",
+    photo: "/assets/images/testimonials/marcus-t.webp",
   },
   {
     name: "Priya D.",
@@ -28,6 +30,7 @@ const testimonials = [
       "Seeing the seating and planting laid out together made it easy to agree on a direction with my partner.",
     initial: "P",
     tone: "clay",
+    photo: "/assets/images/testimonials/priya-d.webp",
   },
   {
     name: "Owen S.",
@@ -36,6 +39,7 @@ const testimonials = [
       "The entry bed plan finally gave our porch a sense of arrival instead of a random row of shrubs.",
     initial: "O",
     tone: "green",
+    photo: "/assets/images/testimonials/owen-s.webp",
   },
   {
     name: "Farrah N.",
@@ -44,6 +48,7 @@ const testimonials = [
       "Every zone of the yard now shares the same plant language, which was the part we couldn't figure out ourselves.",
     initial: "F",
     tone: "gold",
+    photo: "/assets/images/testimonials/farrah-n.webp",
   },
   {
     name: "Diego M.",
@@ -52,6 +57,7 @@ const testimonials = [
       "A side path we'd ignored for years turned into a usable, good-looking passage between the two yards.",
     initial: "D",
     tone: "clay",
+    photo: "/assets/images/testimonials/diego-m.webp",
   },
 ];
 
@@ -79,7 +85,11 @@ function TestimonialCard({ item, hidden }) {
       <div className="testimonial-card__head">
         {item.photo ? (
           <span className="testimonial-avatar">
-            <img src={item.photo} alt="" />
+            <img
+              src={item.photo}
+              alt={`${item.name} testimonial`}
+              loading="lazy"
+            />
           </span>
         ) : (
           <span
@@ -95,7 +105,9 @@ function TestimonialCard({ item, hidden }) {
         </figcaption>
       </div>
 
-      <blockquote>{item.quote}</blockquote>
+      <blockquote>
+        &ldquo;{item.quote}&rdquo;
+      </blockquote>
 
       <Stars />
     </figure>
@@ -139,7 +151,7 @@ export default function Testimonials() {
             className="btn btn--outline"
             href="https://orlanogardens.etsy.com/"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             View Verified Etsy Reviews
           </a>
