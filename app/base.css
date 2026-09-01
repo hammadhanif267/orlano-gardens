@@ -522,25 +522,9 @@ h4 {
   padding: clamp(4.5rem, 8vw, 7rem) 0;
 }
 
-.hero::after {
-  position: absolute;
-  top: -180px;
-  right: -190px;
-  width: 560px;
-  height: 560px;
-  border: 1px solid rgba(201, 153, 58, 0.28);
-  border-radius: 50%;
-  content: "";
-  pointer-events: none;
-}
-
 .hero--dark {
   background: var(--green);
   color: #c8d5cd;
-}
-
-.hero--dark::after {
-  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .hero--dark h1,
@@ -1939,17 +1923,6 @@ h4 {
   background: var(--green);
   color: #c7d4cc;
   padding: clamp(3rem, 6vw, 5rem) 0;
-}
-
-.cta-band::after {
-  position: absolute;
-  right: -140px;
-  bottom: -220px;
-  width: 500px;
-  height: 500px;
-  border: 1px solid #31513f;
-  border-radius: 50%;
-  content: "";
 }
 
 .cta-band__inner {

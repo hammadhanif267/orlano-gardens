@@ -26,20 +26,7 @@ const structuredData = {
 export default function Page() {
   return (
     <>
-      {/* Remove decorative curves from Home page, CTA and footer */}
       <style>{`
-        .hero::before,
-        .hero::after,
-        .cta-band::before,
-        .cta-band::after,
-        footer::before,
-        footer::after,
-        .footer::before,
-        .footer::after {
-          display: none !important;
-          content: none !important;
-        }
-
         .hero-rating {
           display: flex;
           align-items: center;

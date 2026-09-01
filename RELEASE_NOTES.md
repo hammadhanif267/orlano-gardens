@@ -1,4 +1,15 @@
-# Orlano Gardens — logo, testimonials, hydration, and cleanup
+# Orlano Gardens — responsive workflow and decorative cleanup
+
+## Responsive revision
+
+- Standardized every numbered `.process-line` workflow across the home, services, how-it-works, about, and inquiry routes.
+- Desktop workflows now keep each gold number at the start of its step and use one continuous straight connector aligned through the number centers.
+- Mobile and tablet workflows now stack vertically with each gold number directly to the left of its heading and the description aligned beneath the heading.
+- Added a narrow-phone adjustment for 320–380 px screens without shrinking tap targets or body copy.
+- Removed the large decorative circular curves from all hero and CTA sections site-wide.
+- Removed the obsolete home-page-only curve suppression so the behavior is controlled by the shared stylesheet.
+
+## Previous maintenance revision
 
 This build completes the requested Next.js maintenance pass:
 
@@ -17,6 +28,8 @@ Verification completed:
 
 - ESLint: passed with zero warnings.
 - Production build: passed on Next.js 16.3.4.
+- Shared numbered workflows confirmed on 10 routes.
+- Hero and CTA curve generators removed from the shared stylesheet.
 - Dependency audit: zero known production vulnerabilities.
 - Hydration console sweep: seven representative routes passed with no hydration warnings.
 - Production route smoke test: all 28 sitemap routes returned HTTP 200.
