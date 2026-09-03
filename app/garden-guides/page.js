@@ -1,32 +1,115 @@
+import Image from "next/image";
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
+import { guides } from "@/lib/guides";
 import { buildMetadata } from "@/lib/metadata";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "Garden Guides | Orlano Gardens",
-  description: "Original garden planning articles about front yards, backyards, materials, mature plant scale and realistic maintenance.",
-  path: "/garden-guides"
+  title: "Garden and Outdoor Design Guides",
+  description:
+    "Ten source linked guides covering current outdoor living, low maintenance, climate, planting and layout decisions.",
+  path: "/garden-guides",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/garden-guides",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
-
-export default function Page() {
+export default function GuidesPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Orlano Gardens design guides",
+    url: absoluteUrl("/garden-guides"),
+    hasPart: guides.map((guide) => ({
+      "@type": "Article",
+      headline: guide.title,
+      url: absoluteUrl(`/garden-guides/${guide.slug}`),
+    })),
+  };
+  const featured = guides[0];
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container hero__grid"><div><div className="eyebrow">Garden Guides</div><h1>Practical planning before the <span className="accent">purchase.</span></h1><p className="lead">Original guidance for homeowners who need to understand scale, layout, materials and maintenance before buying plants or starting physical work.</p><div className="btn-row"><a className="btn btn--primary" href="#all-guides">Browse Guides</a><a className="btn btn--outline" href="/get-custom-design">Get a Custom Design</a></div></div><div className="hero__visual"><span className="image-label">Illustrated planning guide</span><img className="hero__image" src="/assets/images/front-yard-before-after.webp" alt="Front yard before and digital design concept" /><div className="hero__caption"><strong>Good advice begins with constraints.</strong><span>Mature size, access, drainage and local conditions control every durable plan.</span></div></div></div></section>
-      <section className="section section--dark"><div className="container split"><div><div className="eyebrow eyebrow--gold">Featured guide</div><h2>How to plan a front yard bed that still works in five years.</h2><p>Young plants are temporary. Windows, access and mature width are not. Use the fifth-year test before buying.</p><a className="btn btn--gold" href="/garden-guides/front-yard-bed-five-years">Read Featured Guide</a></div><div className="image-frame"><span className="image-label">Digital Design Concept</span><img src="/assets/images/front-yard-before-after.webp" alt="Front yard planning example" /></div></div></section>
-      <section className="section" id="all-guides"><div className="container"><div data-filter-system=""><div className="section-heading"><div><div className="eyebrow">All garden guides</div><h2>Clear decisions before site work.</h2></div></div><div className="toolbar"><div className="filter-group" aria-label="Filter garden guides"><button className="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button><button className="filter-btn" type="button" data-filter="front" aria-pressed="false">Front Yard</button><button className="filter-btn" type="button" data-filter="backyard" aria-pressed="false">Backyard</button><button className="filter-btn" type="button" data-filter="maintenance" aria-pressed="false">Maintenance</button><button className="filter-btn" type="button" data-filter="materials" aria-pressed="false">Materials</button></div><label className="search-field"><span className="sr-only">Search guides</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input type="search" placeholder="Search guides" data-filter-search="" /></label></div><div className="guide-grid"><article className="guide-item guide-card" data-category="front" data-search="Front Yard Planning How to plan a front yard bed that still works in five years Build around mature size, clear access, drainage and realistic maintenance."><img src="/assets/images/front-yard-before-after.webp" alt="How to plan a front yard bed that still works in five years" /><div className="guide-card__body"><div className="guide-card__meta"><span>Front Yard Planning</span><span>9 min read</span></div><h3>How to plan a front yard bed that still works in five years</h3><p>Build around mature size, clear access, drainage and realistic maintenance.</p><a href="/garden-guides/front-yard-bed-five-years">Read article →</a></div></article><article className="guide-item guide-card" data-category="backyard" data-search="Backyard Planning Plan a backyard around use—not leftover space Protect circulation and open ground while creating useful outdoor rooms."><img src="/assets/images/backyard-zones.webp" alt="Plan a backyard around use—not leftover space" /><div className="guide-card__body"><div className="guide-card__meta"><span>Backyard Planning</span><span>8 min read</span></div><h3>Plan a backyard around use—not leftover space</h3><p>Protect circulation and open ground while creating useful outdoor rooms.</p><a href="/garden-guides/backyard-zoning">Read article →</a></div></article><article className="guide-item guide-card" data-category="maintenance" data-search="Maintenance Planning Low-maintenance front yards: reduce tasks, not just plants Control edges, mature scale, irrigation demand and recurring work."><img src="/assets/images/front-yard-deliverables.webp" alt="Low-maintenance front yards: reduce tasks, not just plants" /><div className="guide-card__body"><div className="guide-card__meta"><span>Maintenance Planning</span><span>7 min read</span></div><h3>Low-maintenance front yards: reduce tasks, not just plants</h3><p>Control edges, mature scale, irrigation demand and recurring work.</p><a href="/garden-guides/low-maintenance-front-yard">Read article →</a></div></article><article className="guide-item guide-card" data-category="materials" data-search="Materials How to choose landscape stone without making the bed look busy Limit colors, control the edge, respect drainage and plan for cleanup."><img src="/assets/images/focused-bed-handoff.webp" alt="How to choose landscape stone without making the bed look busy" /><div className="guide-card__body"><div className="guide-card__meta"><span>Materials</span><span>8 min read</span></div><h3>How to choose landscape stone without making the bed look busy</h3><p>Limit colors, control the edge, respect drainage and plan for cleanup.</p><a href="/garden-guides/choosing-landscape-stone">Read article →</a></div></article><div className="empty-state" data-filter-empty="" hidden>No guide matches that search.</div></div></div></div></section>
-      <section className="section section--sage"><div className="container"><div className="section-heading"><div><div className="eyebrow">The editorial standard</div><h2>Useful, honest and locally verified.</h2></div><p>Every article separates general design guidance from decisions that require local knowledge.</p></div><div className="grid grid--4"><article className="card"><span className="card__number">01</span><h3>Specific problem</h3><p>Each guide answers one real planning decision instead of padding a broad topic.</p></article><article className="card"><span className="card__number">02</span><h3>Mature scale</h3><p>Advice considers growth, clearance and maintenance beyond installation day.</p></article><article className="card"><span className="card__number">03</span><h3>Honest imagery</h3><p>AI-assisted concepts are labeled and never presented as completed construction.</p></article><article className="card"><span className="card__number">04</span><h3>Local check</h3><p>Plant, utility, permit and structural decisions remain subject to authoritative local review.</p></article></div></div></section>
-      <section className="cta-band"><div className="container cta-band__inner"><div><div className="eyebrow eyebrow--gold">Ready when the space is</div><h2>Need advice for the actual property?</h2><p>General articles cannot account for every photograph, measurement and priority. A custom design can.</p></div><a className="btn btn--gold" href="/get-custom-design">Get Your Custom Design</a></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <StructuredData data={schema} />
+      <section className="guides-hero">
+        <div className="container guides-hero__inner">
+          <div className="guides-hero__intro motion-rise">
+            <div className="eyebrow">Ten focused garden guides</div>
+            <h1>Outdoor decisions explained clearly.</h1>
+            <p className="lead">
+              Use the guides to understand layout, maintenance and material
+              tradeoffs before spending on the wrong direction.
+            </p>
+            <a className="btn btn--primary" href="#guide-library">
+              Browse All Guides
+            </a>
+          </div>
+          <Link className="featured-guide motion-rise motion-delay-1" href={`/garden-guides/${featured.slug}`}>
+            <span className="featured-guide__media">
+              <Image src={featured.image} alt="" width={1200} height={800} priority />
+            </span>
+            <div className="featured-guide__body">
+              <span className="tag">Featured guide</span>
+              <h2>{featured.title}</h2>
+              <p>{featured.excerpt}</p>
+              <span className="text-link">Read featured guide →</span>
+            </div>
+          </Link>
+        </div>
+      </section>
+      <section className="section" id="guide-library">
+        <div className="container" data-filter-system="">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">Guide library</div>
+              <h2>Open any card to read the complete guide.</h2>
+            </div>
+            <p>
+              Every article includes sources, practical checks and clear limits
+              for decisions that require local verification.
+            </p>
+          </div>
+          <div className="toolbar">
+            <label className="search-field">
+              <span className="sr-only">Search guides</span>
+              <input
+                type="search"
+                placeholder="Search topics or problems"
+                data-filter-search=""
+              />
+            </label>
+          </div>
+          <div className="guide-grid">
+            {guides.map((guide, index) => (
+              <Link
+                className="guide-item guide-card guide-card--link"
+                data-category="trends"
+                data-search={`${guide.title} ${guide.excerpt}`}
+                href={`/garden-guides/${guide.slug}`}
+                key={guide.slug}
+              >
+                <Image
+                  src={guide.image}
+                  alt=""
+                  width={760}
+                  height={475}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  sizes="(max-width: 760px) 100vw, 33vw"
+                />
+                <div className="guide-card__body">
+                  <div className="guide-card__meta">
+                    <span>{guide.category}</span>
+                    <span>{guide.readTime}</span>
+                  </div>
+                  <h3 className="guide-card__title">{guide.title}</h3>
+                  <p>{guide.excerpt}</p>
+                  <span className="text-link">Read guide →</span>
+                </div>
+              </Link>
+            ))}
+            <div className="empty-state" data-filter-empty="" hidden>
+              No guide matches that search.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

@@ -1,36 +1,42 @@
-const routes = [
+import { guides } from "@/lib/guides";
+import { absoluteUrl, premadePlans } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+const staticRoutes = [
   "/",
   "/about",
   "/accessibility",
   "/contact",
   "/cookie-policy",
+  "/custom-design-service",
   "/disclaimer",
   "/faq",
   "/garden-guides",
-  "/get-custom-design",
   "/how-it-works",
-  "/projects",
-  "/testimonials",
+  "/portfolio",
+  "/ready-to-use-designs",
   "/pricing",
   "/privacy-policy",
   "/services",
   "/site-map",
   "/terms-and-conditions",
-  "/garden-guides/backyard-zoning",
-  "/garden-guides/choosing-landscape-stone",
-  "/garden-guides/front-yard-bed-five-years",
-  "/garden-guides/low-maintenance-front-yard",
-  "/projects/backyard-zoning-case-study",
-  "/services/backyard-design",
-  "/services/front-yard-design",
-  "/services/garden-bed-entry",
-  "/services/multi-area-property",
-  "/services/patio-outdoor-living"
 ];
 
 export default function sitemap() {
-  return routes.map((path) => ({
-    url: `https://orlanogardens.com${path === "/" ? "" : path}`,
-    lastModified: new Date(),
+  const guideRoutes = guides.map(({ slug }) => `/garden-guides/${slug}`);
+  const premadeRoutes = premadePlans.map(
+    ({ slug }) => `/ready-to-use-designs/${slug}`,
+  );
+  return [...staticRoutes, ...guideRoutes, ...premadeRoutes].map((path) => ({
+    url: absoluteUrl(path),
+    lastModified: new Date("2026-09-01"),
+    changeFrequency: path.startsWith("/garden-guides") ? "monthly" : "yearly",
+    priority:
+      path === "/"
+        ? 1
+        : path === "/garden-guides" || path === "/portfolio"
+          ? 0.9
+          : 0.7,
   }));
 }

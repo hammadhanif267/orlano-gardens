@@ -94,8 +94,7 @@ img {
 
 a {
   color: inherit;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+  text-decoration: none;
 }
 
 button,
@@ -364,6 +363,12 @@ h4 {
 
 .nav-dropdown__trigger svg {
   width: 12px;
+  height: 12px;
+  color: var(--gold);
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
   transition: transform 180ms ease;
 }
 
@@ -461,7 +466,10 @@ h4 {
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
 }
 
 .btn:hover {
@@ -728,7 +736,9 @@ h4 {
   background: var(--paper);
   box-shadow: 0 0 0 rgba(14, 42, 29, 0);
   padding: 1.7rem;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .card:hover {
@@ -786,7 +796,11 @@ h4 {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(180deg, transparent 30%, rgba(5, 27, 16, 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(5, 27, 16, 0.92) 100%
+  );
   content: "";
 }
 
@@ -1108,134 +1122,6 @@ h4 {
   text-transform: uppercase;
 }
 
-.testimonials .section-heading {
-  margin-bottom: 2.4rem;
-}
-
-.testimonials__cta {
-  justify-content: center;
-  margin-top: 2.4rem;
-}
-
-.testimonial-marquee {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
-}
-
-.testimonial-track {
-  display: flex;
-  width: max-content;
-  gap: 1.25rem;
-  padding: 0.35rem 0;
-  animation: testimonial-scroll 48s linear infinite;
-}
-
-.testimonial-marquee:hover .testimonial-track,
-.testimonial-marquee:focus-within .testimonial-track {
-  animation-play-state: paused;
-}
-
-@keyframes testimonial-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.testimonial-card {
-  display: flex;
-  flex: 0 0 320px;
-  flex-direction: column;
-  gap: 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
-  padding: 1.5rem;
-  margin: 0;
-}
-
-.testimonial-card__head {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.testimonial-card__head figcaption {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.35;
-}
-
-.testimonial-card__head strong {
-  color: var(--green);
-  font-size: 0.86rem;
-}
-
-.testimonial-card__head span {
-  color: var(--muted);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.testimonial-avatar {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  overflow: hidden;
-  border-radius: 50%;
-  background: var(--green);
-  color: var(--white);
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-}
-
-.testimonial-avatar--green {
-  background: var(--green);
-  color: var(--white);
-}
-
-.testimonial-avatar--gold {
-  background: var(--gold);
-  color: var(--green);
-}
-
-.testimonial-avatar--clay {
-  background: var(--clay);
-  color: var(--white);
-}
-
-.testimonial-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.testimonial-card blockquote {
-  margin: 0;
-  color: var(--charcoal);
-  font-family: "Manrope", sans-serif;
-  font-size: 0.92rem;
-  font-style: normal;
-  line-height: 1.65;
-}
-
-.testimonial-stars {
-  color: var(--gold);
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-}
-
 .package-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1355,6 +1241,8 @@ h4 {
 .search-field {
   position: relative;
   min-width: min(100%, 310px);
+  overflow: hidden;
+  border-radius: 999px;
 }
 
 .search-field input {
@@ -1986,7 +1874,7 @@ h4 {
 
 .footer-column a:hover {
   color: var(--white);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .site-footer__bottom {
@@ -2183,7 +2071,9 @@ h4 {
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
 }
 
 .reveal.is-visible {
@@ -2243,7 +2133,9 @@ h4 {
     background: var(--ivory);
     padding: 1rem 20px 2rem;
     overflow-y: auto;
-    transition: transform 220ms ease, visibility 220ms ease;
+    transition:
+      transform 220ms ease,
+      visibility 220ms ease;
   }
 
   .site-header .site-nav.is-open {
@@ -2479,15 +2371,6 @@ h4 {
     white-space: nowrap;
   }
 
-  .testimonial-card {
-    flex-basis: 270px;
-  }
-
-  .testimonial-marquee {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-  }
-
   .info-table {
     display: block;
     overflow-x: auto;
@@ -2584,11 +2467,39 @@ h4 {
 }
 
 /* Orlano Gardens supplied brand mark */
-.brand { align-items: center; flex-direction: row; gap: 0.72rem; }
-.brand__logo { width: 48px; height: 48px; flex: 0 0 48px; object-fit: cover; border-radius: 50%; display: block; background: #000; }
-.brand__copy { display: inline-flex; flex-direction: column; }
-.site-footer .brand__logo { width: 56px; height: 56px; flex-basis: 56px; }
-@media (max-width: 560px) { .brand__logo { width: 42px; height: 42px; flex-basis: 42px; } .brand__name { font-size: 1.35rem; } }
+.brand {
+  align-items: center;
+  flex-direction: row;
+  gap: 0.72rem;
+}
+.brand__logo {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  background: #000;
+}
+.brand__copy {
+  display: inline-flex;
+  flex-direction: column;
+}
+.site-footer .brand__logo {
+  width: 56px;
+  height: 56px;
+  flex-basis: 56px;
+}
+@media (max-width: 560px) {
+  .brand__logo {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+  .brand__name {
+    font-size: 1.35rem;
+  }
+}
 
 /* Orlano Gardens polish pass: compact header, clean page start and responsive navigation */
 .site-header {
@@ -2735,7 +2646,9 @@ main#main-content {
     height: 1.8px;
     border-radius: 2px;
     background: var(--green);
-    transition: transform 180ms ease, opacity 180ms ease;
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease;
   }
 
   .menu-toggle[aria-expanded="true"] .menu-toggle__lines i:nth-child(1) {
@@ -2852,12 +2765,23 @@ main#main-content {
 }
 
 /* ===== Final performance, image sizing & responsive polish ===== */
-html { scroll-padding-top: calc(var(--header-h, 76px) + 12px); }
-body { overflow-x: hidden; }
+html {
+  scroll-padding-top: calc(var(--header-h, 76px) + 12px);
+}
+body {
+  overflow-x: hidden;
+}
 
 /* Keep image dimensions stable and avoid layout shifts while assets decode. */
-img { max-width: 100%; }
-.media-card img, .comparison-card img, .guide-card img, .image-frame img, .hero__image, .image-frame > img {
+img {
+  max-width: 100%;
+}
+.media-card img,
+.comparison-card img,
+.guide-card img,
+.image-frame img,
+.hero__image,
+.image-frame > img {
   display: block;
 }
 
@@ -2868,34 +2792,78 @@ img { max-width: 100%; }
   aspect-ratio: 5 / 4;
 }
 @media (max-width: 960px) {
-  .section .grid.grid--3 .media-card { height: 360px; min-height: 360px; }
+  .section .grid.grid--3 .media-card {
+    height: 360px;
+    min-height: 360px;
+  }
 }
 @media (max-width: 560px) {
-  .section .grid.grid--3 .media-card { height: 310px; min-height: 310px; }
+  .section .grid.grid--3 .media-card {
+    height: 310px;
+    min-height: 310px;
+  }
 }
 
 /* Legal pages: maximum contrast for body copy and CTA cards. */
 .legal-hero .lead,
 .legal-hero .card p,
-.legal-hero .card li { color: #fff !important; }
-.legal-hero .card { color: #fff; }
+.legal-hero .card li {
+  color: #fff !important;
+}
+.legal-hero .card {
+  color: #fff;
+}
 .legal-hero .card h2,
-.legal-hero .card h3 { color: #fff; }
-.legal-hero .card .btn--gold { background: var(--gold); color: #000; }
+.legal-hero .card h3 {
+  color: #fff;
+}
+.legal-hero .card .btn--gold {
+  background: var(--gold);
+  color: #000;
+}
 
 /* Contact email must stay pure white on the dark contact card. */
-.card--dark h2 { color: #fff; }
+.card--dark h2 {
+  color: #fff;
+}
 
 /* Project filters: selected state is the only filled/highlighted filter. */
-.filter-btn { transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
-.filter-btn.is-active { background: var(--green); color: #fff; border-color: var(--green); }
-.filter-btn:not(.is-active):hover { background: rgba(14,42,29,.08); color: var(--green); }
+.filter-btn {
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+.filter-btn.is-active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.filter-btn:not(.is-active):hover {
+  background: rgba(14, 42, 29, 0.08);
+  color: var(--green);
+}
 
 /* Stable project/guide image proportions. */
-.project-grid .comparison-card { overflow: hidden; }
-.project-grid .comparison-card > img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
-.guide-card > img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.image-frame > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.project-grid .comparison-card {
+  overflow: hidden;
+}
+.project-grid .comparison-card > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.guide-card > img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.image-frame > img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
 
 /* Above-the-fold pages: keep the opening hero compact enough for the CTA to be visible. */
 main#main-content > .hero {
@@ -2904,54 +2872,55 @@ main#main-content > .hero {
   align-items: center;
   padding-block: clamp(2rem, 4vw, 4rem);
 }
-main#main-content > .hero .hero__grid { width: 100%; }
+main#main-content > .hero .hero__grid {
+  width: 100%;
+}
 @media (max-width: 960px) {
-  main#main-content > .hero { min-height: auto; display: block; padding-block: 2rem 2.5rem; }
+  main#main-content > .hero {
+    min-height: auto;
+    display: block;
+    padding-block: 2rem 2.5rem;
+  }
 }
 
 /* Navigation drawer never pushes page content; it overlays it. */
 @media (max-width: 960px) {
-  .site-header .site-nav { position: fixed; top: 0; right: 0; bottom: 0; height: 100svh; overflow-y: auto; overscroll-behavior: contain; }
-  .nav-backdrop { position: fixed; inset: 0; }
-  .site-nav__list { width: 100%; }
-  .site-nav__cta { width: 100%; justify-content: center; }
-}
-
-/* Route loading overlay: use a real overlay for client navigation, not just a header bar. */
-.navigation-loading {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  height: auto;
-  display: grid;
-  place-items: center;
-  background: rgba(14,42,29,.82);
-  backdrop-filter: blur(5px);
-}
-.navigation-loading__bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 35%;
-  height: 4px;
-  background: var(--gold, #c99a3a);
-}
-.navigation-loading__text {
-  position: static;
-  padding: .7rem 1rem;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 999px;
-  background: rgba(255,255,255,.96);
-  color: #111;
-  box-shadow: 0 14px 40px rgba(0,0,0,.2);
+  .site-header .site-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+  }
+  .site-nav__list {
+    width: 100%;
+  }
+  .site-nav__cta {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Footer stays usable on narrow screens. */
 @media (max-width: 700px) {
-  .site-footer__grid { grid-template-columns: 1fr 1fr; }
-  .site-footer__intro { grid-column: 1 / -1; }
+  .site-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .site-footer__intro {
+    grid-column: 1 / -1;
+  }
 }
 @media (max-width: 480px) {
-  .site-footer__grid { grid-template-columns: 1fr; }
-  .site-footer__intro { grid-column: auto; }
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+  .site-footer__intro {
+    grid-column: auto;
+  }
 }

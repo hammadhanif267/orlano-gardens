@@ -1,36 +1,46 @@
-# Orlano Gardens — responsive workflow and decorative cleanup
+# Orlano Gardens professional rebuild
 
-## Responsive revision
+Release date: September 3, 2026
 
-- Standardized every numbered `.process-line` workflow across the home, services, how-it-works, about, and inquiry routes.
-- Desktop workflows now keep each gold number at the start of its step and use one continuous straight connector aligned through the number centers.
-- Mobile and tablet workflows now stack vertically with each gold number directly to the left of its heading and the description aligned beneath the heading.
-- Added a narrow-phone adjustment for 320–380 px screens without shrinking tap targets or body copy.
-- Removed the large decorative circular curves from all hero and CTA sections site-wide.
-- Removed the obsolete home-page-only curve suppression so the behavior is controlled by the shared stylesheet.
+## Information architecture
 
-## Previous maintenance revision
+- Replaced separate area based service pages with Custom Design Service and Ready-to-Use Designs.
+- Combined Projects and Testimonials into one Portfolio and Client Results page.
+- Added permanent redirects for every removed public route.
+- Reduced the Garden Guides library to ten focused current topics.
 
-This build completes the requested Next.js maintenance pass:
+## Client experience
 
-- Replaced the old header, footer, and loading-state logo with the supplied transparent Orlano Gardens artwork.
-- Added favicon, app icon, and Apple touch icon variants from the supplied favicon artwork.
-- Added a complete `/testimonials` page and changed the header link from the home-page anchor to the dedicated route.
-- Kept the existing home-page testimonial section and centralized its card data for reuse.
-- Removed pre-hydration DOM mutations from the lightbox, pricing recommender, article tools, and footer year.
-- Added a real ESLint configuration and a non-interactive `npm run lint` command.
-- Upgraded to Next.js 16.3.4 and resolved the dependency audit findings.
-- Consolidated CSS and font assets into the App Router source structure for Turbopack compatibility.
-- Removed the duplicate legacy static website, unused static JavaScript, duplicate legal page, obsolete brand files, and unreferenced images.
-- Preserved `/portfolio` and `/terms-of-service` as permanent redirects to canonical routes.
+- Added distinctive page specific hero layouts and restrained reveal motion.
+- Added Etsy client feedback directly below the home hero.
+- Made every Garden Guide card fully clickable.
+- Added direct Etsy, Instagram and email contact options.
+- Connected all four package buttons to the supplied Etsy listings.
+- Repositioned premade plans as a commercial product collection with image first cards and text below each image.
+- Added individual ecommerce style specification, gallery and Etsy purchase pages for every ready-to-use design.
+- Rebuilt the shared Etsy feedback section with gold stars, continuous motion and date free cards.
+- Added the home page decision value section and removed its premade example strip.
+- Redesigned the Pricing and Garden Guides hero sections.
+- Replaced technology focused visualization wording with client friendly real space mockup language.
+- Added rounded browser and device favicon assets.
+- Added a stable header, slim gold route indicator and restrained content transitions.
+- Added article Copy Link and Print Article controls, with article only print output.
+- Expanded the How It Works page with seven concise, practical steps.
 
-Verification completed:
+## Proof and partnerships
 
-- ESLint: passed with zero warnings.
-- Production build: passed on Next.js 16.3.4.
-- Shared numbered workflows confirmed on 10 routes.
-- Hero and CTA curve generators removed from the shared stylesheet.
-- Dependency audit: zero known production vulnerabilities.
-- Hydration console sweep: seven representative routes passed with no hydration warnings.
-- Production route smoke test: all 28 sitemap routes returned HTTP 200.
-- Logo, favicon, icon, sitemap, testimonials route, and redirects returned the expected status.
+- Added the current Etsy Star Seller status, 5.0 rating, 13 reviews and 86 sales, checked September 2, 2026.
+- Used exact published wording for the selected Etsy review excerpts.
+- Described 80 plus outdoor spaces as designed and visualized, without suggesting physical installation by Orlano Gardens.
+- Added a dedicated service partnership offer for landscape companies, including one time, recurring, white label and co branded options.
+- Expanded selected portfolio items with scope, priorities and delivered guidance.
+
+## Technical quality
+
+- Removed obsolete routes, components, data files and four unreferenced image assets.
+- Removed the website contact backend and kept external communication on established platforms.
+- Updated sitemap, robots, metadata, redirects and structured data for the new architecture.
+- Kept AdSense inactive until publisher credentials and required consent controls exist.
+- Added reduced motion support and ensured content remains visible if JavaScript does not load.
+- Removed the obsolete full page loading screen and its unused styles.
+- Reduced the primary app icon from about 1.4 MB to under 100 KB.

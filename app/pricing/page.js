@@ -1,35 +1,162 @@
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
 import { buildMetadata } from "@/lib/metadata";
+import { absoluteUrl, packages } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "Outdoor Design Pricing | Orlano Gardens",
-  description: "Compare Orlano Gardens remote digital design packages from $29 to $149 and confirm the correct scope before Etsy checkout.",
-  path: "/pricing"
+  title: "Custom Outdoor Design Pricing",
+  description:
+    "Compare the $29, $49, $89 and $149 Orlano Gardens custom design packages and continue to the matching Etsy listing.",
+  path: "/pricing",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/pricing",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
-
-export default function Page() {
+export default function PricingPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Custom outdoor design",
+    provider: { "@type": "Organization", name: "Orlano Gardens" },
+    offers: packages.map((item) => ({
+      "@type": "Offer",
+      price: item.price,
+      priceCurrency: "USD",
+      name: item.name,
+      url: item.link,
+    })),
+  };
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container hero__grid"><div><div className="eyebrow">Pricing + Packages</div><h1>Clear packages. <span className="accent">Context first.</span></h1><p className="lead">The number of concepts and property complexity determine the package. Send the real space before paying when the scope is uncertain.</p><div className="btn-row"><a className="btn btn--primary" href="/get-custom-design">Confirm My Scope</a><a className="btn btn--outline" href="/services">Review Services</a></div><p className="service-clarifier">Prices cover remote digital design only. Plants, materials, property visits and installation are not included.</p></div><div className="hero__visual"><span className="image-label">Package comparison</span><img className="hero__image" src="/assets/images/services-diptych.webp" alt="Outdoor digital design service examples" /><div className="hero__caption"><strong>Pay for the scope the property actually needs.</strong><span>Official checkout is completed through Etsy after review.</span></div></div></div></section>
-      <section className="section"><div className="container"><div className="section-heading"><div><div className="eyebrow">Four clear packages</div><h2>Choose with evidence—not guesswork.</h2></div><p>Every package includes custom concepts and a practical handoff.</p></div><div className="package-grid"><article className="package-card"><span className="eyebrow">Two concepts</span><h3>Focused Start</h3><div className="package-card__price">$29</div><p>One small, focused outdoor area</p><ul className="check-list"><li>2 custom concepts</li><li>Planting layout</li><li>Plant + material list</li><li>Setup guide</li><li>One focused revision</li></ul><a className="btn btn--outline" href="/get-custom-design">Confirm This Scope</a></article><article className="package-card"><span className="eyebrow">Four concepts</span><h3>Focused Choice</h3><div className="package-card__price">$49</div><p>One small, focused outdoor area</p><ul className="check-list"><li>4 custom concepts</li><li>Planting layout</li><li>Plant + material list</li><li>Setup guide</li><li>One focused revision</li></ul><a className="btn btn--outline" href="/get-custom-design">Confirm This Scope</a></article><article className="package-card package-card--featured"><span className="package-card__label">Most versatile</span><span className="eyebrow">Four concepts</span><h3>Complete Area</h3><div className="package-card__price">$89</div><p>One medium yard or two connected areas</p><ul className="check-list"><li>4 custom concepts</li><li>Complete-area direction</li><li>Plant + material list</li><li>Layout + setup guide</li><li>One focused revision</li></ul><a className="btn btn--primary" href="/get-custom-design">Confirm This Scope</a></article><article className="package-card"><span className="eyebrow">Custom scope</span><h3>Multi-Area</h3><div className="package-card__price">$149</div><p>Large, complex or several connected areas</p><ul className="check-list"><li>Property-wide concepts</li><li>Coordinated material language</li><li>Plant + material list</li><li>Layout + setup guide</li><li>One focused revision</li></ul><a className="btn btn--outline" href="/get-custom-design">Confirm This Scope</a></article></div></div></section>
-      <section className="section section--dark"><div className="container"><div className="scope-recommender scope-recommender--single"><form data-scope-form=""><div className="eyebrow eyebrow--gold">Quick scope check</div><h2>Find the right starting point.</h2><div className="field"><label htmlFor="scope-area">How much space?</label><select id="scope-area" name="area"><option value="small">One small focused area</option><option value="medium">One complete medium area or two connected areas</option><option value="large">Large, complex or several areas</option></select></div><div className="field" style={{marginTop: "1rem"}}><label htmlFor="scope-concepts">How many directions for a small area?</label><select id="scope-concepts" name="concepts"><option value="two">Two concepts</option><option value="four">Four concepts</option></select></div></form><div className="scope-hint" data-scope-result="" aria-live="polite"><span className="eyebrow">Likely starting point</span><div className="scope-result__price">$29</div><h3>$29 package</h3><p>Two concepts for one small, focused outdoor area.</p><p className="small muted">This is guidance only. Send photos before purchase so the real scope can be confirmed.</p></div></div></div></section>
-      <section className="section section--ivory"><div className="container"><div className="section-heading"><div><div className="eyebrow">Package comparison</div><h2>What changes—and what does not.</h2></div></div><div style={{overflowX: "auto"}}><table className="info-table"><thead><tr><th>Package</th><th>Area</th><th>Concepts</th><th>Handoff</th><th>Revision</th><th>Price</th></tr></thead><tbody><tr><td>Focused Start</td><td>Small focused area</td><td>2</td><td>Included</td><td>1 focused</td><td>$29</td></tr><tr><td>Focused Choice</td><td>Small focused area</td><td>4</td><td>Included</td><td>1 focused</td><td>$49</td></tr><tr><td>Complete Area</td><td>Medium area / 2 connected areas</td><td>4</td><td>Included</td><td>1 focused</td><td>$89</td></tr><tr><td>Multi-Area</td><td>Large / complex / several areas</td><td>Scope based</td><td>Included</td><td>1 focused</td><td>$149</td></tr></tbody></table></div></div></section>
-      <section className="section"><div className="container"><div className="section-heading"><div><div className="eyebrow">Before checkout</div><h2>Three rules prevent the wrong purchase.</h2></div><p>Do not treat the listing like a physical landscaping package.</p></div><div className="grid grid--3"><article className="card"><span className="card__number">01</span><h3>Standard delivery</h3><p>3–5 working days after all required project information is complete.</p></article><article className="card"><span className="card__number">02</span><h3>Optional priority</h3><p>+$29 for 24-hour delivery only when feasible and confirmed before purchase.</p></article><article className="card"><span className="card__number">03</span><h3>Official checkout</h3><p>Etsy only, after the project scope and correct listing are confirmed.</p></article></div></div></section>
-      <section className="section section--sage"><div className="container split"><div><div className="eyebrow">Included</div><h2>The package buys clarity.</h2><ul className="check-list"><li>Custom concepts based on submitted photos</li><li>Plant, material and layout direction</li><li>Tool and setup guidance</li><li>One focused revision</li></ul></div><div className="card"><div className="eyebrow" style={{color: "var(--clay)"}}>Not included</div><h3>Physical work or products</h3><ul className="plain-list"><li>Property visits or on-site measurements</li><li>Plants, materials, tools or delivery</li><li>Landscaping crew or installation</li><li>Contractor, permit or engineering services</li></ul></div></div></section>
-      <section className="section"><div className="container split"><div><div className="eyebrow">Pricing FAQ</div><h2>Choose with context, not guesswork.</h2><p>Open the full FAQ for delivery, revisions, plant suitability, property photos and checkout boundaries.</p><a className="btn btn--outline" href="/faq">Read All FAQs</a></div><div className="accordion"><div className="accordion__item"><button className="accordion__trigger" aria-expanded="true" aria-controls="price-faq-1" data-accordion-trigger="">Can I purchase before sending photos?<span className="accordion__icon"></span></button><div className="accordion__panel" id="price-faq-1"><div>Do not purchase first when scope is uncertain. Send the full area so the correct package can be confirmed.</div></div></div><div className="accordion__item"><button className="accordion__trigger" aria-expanded="false" aria-controls="price-faq-2" data-accordion-trigger="">Are physical plants included?<span className="accordion__icon"></span></button><div className="accordion__panel" id="price-faq-2" hidden><div>No. Every package is a remote digital design service.</div></div></div><div className="accordion__item"><button className="accordion__trigger" aria-expanded="false" aria-controls="price-faq-3" data-accordion-trigger="">What does one revision mean?<span className="accordion__icon"></span></button><div className="accordion__panel" id="price-faq-3" hidden><div>After selecting one concept, one focused revision can refine it while staying inside the purchased scope.</div></div></div></div></div></section>
-      <section className="cta-band"><div className="container cta-band__inner"><div><div className="eyebrow eyebrow--gold">Ready when the space is</div><h2>Send the space before choosing the package.</h2><p>Share clear photos and priorities so the correct scope can be confirmed before Etsy checkout.</p></div><a className="btn btn--gold" href="/get-custom-design">Get Your Custom Design</a></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <StructuredData data={schema} />
+      <section className="pricing-hero">
+        <div className="container pricing-hero__grid">
+          <div className="pricing-hero__copy motion-rise">
+            <div className="eyebrow">Custom design pricing</div>
+            <h1>Pay for the scope your property actually needs.</h1>
+            <p className="lead">
+              Start with one focused area or coordinate a larger property. Every
+              package is a remote digital service completed through Etsy.
+            </p>
+            <div className="hero__proofs">
+              <span className="chip">From $29</span>
+              <span className="chip">One focused revision</span>
+              <span className="chip">Etsy Star Seller</span>
+            </div>
+          </div>
+          <div className="pricing-hero__decision motion-rise motion-delay-1">
+            <div className="eyebrow eyebrow--gold">Choose by real scope</div>
+            <h2>One clear decision before checkout.</h2>
+            <ol>
+              <li><span>01</span><p><strong>Define the area</strong>One small bed, a complete area or several connected spaces.</p></li>
+              <li><span>02</span><p><strong>Choose the depth</strong>Compare two directions or explore four complete concepts.</p></li>
+              <li><span>03</span><p><strong>Continue on Etsy</strong>Open the exact listing for the package that fits.</p></li>
+            </ol>
+            <div className="pricing-hero__range"><span>Four clear packages</span><strong>$29 to $149</strong></div>
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="pricing-group">
+            <div className="pricing-group__intro">
+              <span className="card__number">01</span>
+              <div className="eyebrow">Small focused area</div>
+              <h2>Choose how many directions you want to compare.</h2>
+              <p>
+                Use these packages for one bed, porch corner, tree bed, driveway
+                strip or another clearly bounded small area.
+              </p>
+            </div>
+            <div className="package-grid package-grid--two">
+              {packages.slice(0, 2).map((item) => (
+                <PackageCard item={item} key={item.price} />
+              ))}
+            </div>
+          </div>
+          <div className="pricing-group pricing-group--dark">
+            <div className="pricing-group__intro">
+              <span className="card__number">02</span>
+              <div className="eyebrow eyebrow--gold">
+                Complete or connected scope
+              </div>
+              <h2>Coordinate the wider property before buying.</h2>
+              <p>
+                Use these packages when the design must connect a full area,
+                several functions or multiple related views.
+              </p>
+            </div>
+            <div className="package-grid package-grid--two">
+              {packages.slice(2).map((item) => (
+                <PackageCard item={item} key={item.price} dark />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="section section--soft">
+        <div className="container split">
+          <div>
+            <div className="eyebrow">Included with every package</div>
+            <h2>A usable visual handoff.</h2>
+            <ul className="check-list">
+              <li>Custom concepts based on submitted photos</li>
+              <li>Plant and material direction</li>
+              <li>Layout and placement guidance</li>
+              <li>Setup and care notes</li>
+              <li>One focused revision after concept selection</li>
+            </ul>
+          </div>
+          <div className="card">
+            <div className="eyebrow">Not included</div>
+            <h3>Physical work and technical verification</h3>
+            <ul className="plain-list">
+              <li>Site visits or measured surveys</li>
+              <li>Plants, products, tools or delivery</li>
+              <li>Landscaping crews or installation</li>
+              <li>Engineering, drainage or permit documents</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section className="cta-band">
+        <div className="container cta-band__inner">
+          <div>
+            <div className="eyebrow eyebrow--gold">Still unsure?</div>
+            <h2>Send the space before choosing.</h2>
+            <p>
+              Use the contact page when the correct project scope is not
+              obvious.
+            </p>
+          </div>
+          <Link className="btn btn--gold" href="/contact">
+            Ask About Your Scope
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function PackageCard({ item, dark = false }) {
+  return (
+    <article className={`package-card${dark ? " package-card--dark" : ""}`}>
+      <span className="eyebrow">{item.concepts}</span>
+      <h3>{item.name}</h3>
+      <div className="package-card__price">${item.price}</div>
+      <p>{item.scope}</p>
+      <ul className="check-list">
+        <li>Planting layout</li>
+        <li>Plant and material list</li>
+        <li>Setup guidance</li>
+        <li>One focused revision</li>
+      </ul>
+      <a
+        className={dark ? "btn btn--gold" : "btn btn--primary"}
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Choose ${item.price} on Etsy <span aria-hidden="true">↗</span>
+      </a>
+    </article>
   );
 }

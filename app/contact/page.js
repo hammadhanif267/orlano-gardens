@@ -1,31 +1,145 @@
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
 import { buildMetadata } from "@/lib/metadata";
+import { absoluteUrl, EMAIL, ETSY_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "Contact | Orlano Gardens",
-  description: "Contact Orlano Gardens about remote outdoor design, package guidance, an existing Etsy order or a privacy request.",
-  path: "/contact"
+  title: "Contact Orlano Gardens",
+  description:
+    "Contact Orlano Gardens through email, Instagram or Etsy for project guidance, professional collaboration or an existing order.",
+  path: "/contact",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/contact",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
-
-export default function Page() {
+export default function ContactPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Orlano Gardens",
+    url: absoluteUrl("/contact"),
+  };
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container hero__grid"><div><div className="eyebrow">Contact</div><h1>Tell us what the space needs to <span className="accent">solve.</span></h1><p className="lead">Use the inquiry form for general questions. For a project review, include the full area, location, priorities and clear photographs.</p><div className="hero__proofs"><span className="chip">Reply by email</span><span className="chip">Scope before checkout</span><span className="chip">Etsy payment only</span></div><p className="service-clarifier">Do not send passwords, payment-card details, government identifiers or other sensitive information.</p></div><div className="card card--dark"><div className="eyebrow eyebrow--gold">Direct contact</div><h2 style={{fontSize: "clamp(1.5rem, 6.2vw, 2.7rem)", overflowWrap: "anywhere", wordBreak: "break-word"}}>orlanogardens@gmail.com</h2><p>Use email for a slow walkthrough video or a photo set that is too large for the inquiry form.</p><a className="btn btn--gold" href="mailto:orlanogardens@gmail.com">Open Email</a><hr style={{border: "0", borderTop: "1px solid #365744", margin: "1.5rem 0"}} /><p className="small">Instagram: @orlanogardens<br />Etsy: official Orlano Gardens shop</p></div></div></section>
-      <section className="section"><div className="container split split--top"><div><div className="eyebrow">Before contacting</div><h2>Send enough context for a useful answer.</h2><ul className="check-list"><li>Exact city, state/province and country</li><li>The area that needs design</li><li>Preferred style and maintenance level</li><li>What must stay or be removed</li><li>Budget direction for physical implementation</li><li>Clear wide photos from useful angles</li></ul><div className="card card--gold"><h3>About file attachments</h3><p>The form can preview selected images on your device, but static websites cannot send attachments securely by themselves. The form prepares an email summary; attach photos or video in your email app before sending.</p></div></div><form className="form-shell" data-email-form="contact"><div className="eyebrow">General inquiry</div><h2>Send a clear message.</h2><div className="form-grid"><div className="field"><label htmlFor="contact-name">Name</label><input id="contact-name" name="Name" autoComplete="name" required /></div><div className="field"><label htmlFor="contact-email">Email</label><input id="contact-email" name="Email" type="email" autoComplete="email" required /></div><div className="field"><label htmlFor="contact-location">City / state / country</label><input id="contact-location" name="Location" autoComplete="address-level2" /></div><div className="field"><label htmlFor="contact-topic">Topic</label><select id="contact-topic" name="Topic"><option>Package guidance</option><option>Existing Etsy order</option><option>Garden guide question</option><option>Privacy or data request</option><option>Other</option></select></div><div className="field field--full"><label htmlFor="contact-message">Message</label><textarea id="contact-message" name="Message" required placeholder="Describe the area, question and what you need clarified."></textarea></div></div><button className="btn btn--primary" type="submit">Send Email</button><p className="form-status" data-form-status="" aria-live="polite" hidden></p></form></div></section>
-      <section className="section section--dark"><div className="container"><div className="section-heading"><div><div className="eyebrow">The right route</div><h2>Choose the shortest path to the answer.</h2></div><p>Do not bury a project request inside a vague social message.</p></div><div className="grid grid--3"><article className="card card--dark"><span className="card__number">01</span><h3>New custom project</h3><p>Use the structured custom-design form with photos and scope details.</p><a className="btn btn--gold btn--sm" href="/get-custom-design">Start Project</a></article><article className="card card--dark"><span className="card__number">02</span><h3>Existing Etsy order</h3><p>Keep order-specific questions in Etsy messages whenever possible.</p><a className="btn btn--light btn--sm" href="https://orlanogardens.etsy.com/" target="_blank" rel="noopener">Open Etsy</a></article><article className="card card--dark"><span className="card__number">03</span><h3>Common service question</h3><p>Read delivery, revision, pricing and installation answers first.</p><a className="btn btn--light btn--sm" href="/faq">Read FAQ</a></article></div></div></section>
-      <section className="cta-band"><div className="container cta-band__inner"><div><div className="eyebrow eyebrow--gold">Ready when the space is</div><h2>Need a design—not just an answer?</h2><p>Share clear photos and priorities so the correct scope can be confirmed before Etsy checkout.</p></div><a className="btn btn--gold" href="/get-custom-design">Get Your Custom Design</a></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <StructuredData data={schema} />
+      <section className="contact-hero">
+        <div className="container contact-hero__grid">
+          <div className="contact-hero__copy motion-rise">
+            <div className="eyebrow">Choose the right contact route</div>
+            <h1>Start the conversation where it can be handled properly.</h1>
+            <p className="lead">
+              Use Instagram for a quick first question, email for professional
+              collaboration, and Etsy for purchases or existing orders.
+            </p>
+            <p className="service-clarifier">
+              Never send payment card details, passwords or government
+              identification.
+            </p>
+          </div>
+          <div className="contact-stack motion-rise motion-delay-1">
+            <a
+              className="contact-option contact-option--etsy"
+              href={ETSY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>01</span>
+              <div>
+                <small>Official orders</small>
+                <strong>Etsy</strong>
+                <p>Purchase a package or continue an existing order.</p>
+              </div>
+              <b aria-hidden="true">↗</b>
+            </a>
+            <a
+              className="contact-option"
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>02</span>
+              <div>
+                <small>Quick project question</small>
+                <strong>Instagram</strong>
+                <p>Send initial photos and ask which package fits.</p>
+              </div>
+              <b aria-hidden="true">↗</b>
+            </a>
+            <a
+              className="contact-option"
+              href={`mailto:${EMAIL}?subject=Orlano%20Gardens%20inquiry`}
+            >
+              <span>03</span>
+              <div>
+                <small>Detailed inquiry or collaboration</small>
+                <strong>Email</strong>
+                <p>{EMAIL}</p>
+              </div>
+              <b aria-hidden="true">→</b>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">Send useful context</div>
+              <h2>Make the first message answerable.</h2>
+            </div>
+            <p>
+              A vague message creates another round of questions. Include the
+              information relevant to your request.
+            </p>
+          </div>
+          <div className="grid grid--3">
+            <article className="card">
+              <span className="card__number">01</span>
+              <h3>Custom project</h3>
+              <ul className="plain-list">
+                <li>City, state and country</li>
+                <li>Wide photos of the complete area</li>
+                <li>Preferred style and maintenance</li>
+                <li>What must stay or change</li>
+              </ul>
+              <Link className="text-link" href="/custom-design-service">
+                Review custom design →
+              </Link>
+            </article>
+            <article className="card">
+              <span className="card__number">02</span>
+              <h3>Existing Etsy order</h3>
+              <ul className="plain-list">
+                <li>Keep order details inside Etsy</li>
+                <li>Include the relevant space or revision</li>
+                <li>Do not send payment details by email</li>
+              </ul>
+              <a
+                className="text-link"
+                href={ETSY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open Etsy →
+              </a>
+            </article>
+            <article className="card">
+              <span className="card__number">03</span>
+              <h3>Landscape company</h3>
+              <ul className="plain-list">
+                <li>Company and service area</li>
+                <li>Typical project type and volume</li>
+                <li>Desired presentation format</li>
+                <li>White label or co branded preference</li>
+              </ul>
+              <a
+                className="text-link"
+                href={`mailto:${EMAIL}?subject=Landscape%20company%20collaboration`}
+              >
+                Discuss collaboration →
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

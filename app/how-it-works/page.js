@@ -1,35 +1,140 @@
+import Image from "next/image";
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
 import { buildMetadata } from "@/lib/metadata";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "How Custom Outdoor Design Works | Orlano Gardens",
-  description: "See the four-step Orlano Gardens process from project photos and scope confirmation to concepts and a practical digital handoff.",
-  path: "/how-it-works"
+  title: "How Custom Outdoor Design Works",
+  description:
+    "Follow the Orlano Gardens process from property photos and Etsy checkout to visual concepts, revision and practical handoff.",
+  path: "/how-it-works",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/how-it-works",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
+const steps = [
+  [
+    "Share Your Space",
+    "Send your location, clear photos, approximate measurements, preferred style and anything that must stay or change.",
+    "Wide, left and right views help the design respond to the complete area rather than one camera angle.",
+  ],
+  [
+    "Confirm the Scope",
+    "Choose the project area and package that match the real space and the number of design directions you need.",
+    "If the scope is unclear, ask before ordering so the correct package is selected.",
+  ],
+  [
+    "Order Through Etsy",
+    "Complete payment through the matched Etsy listing and keep official order communication in Etsy messages.",
+    "This creates one clear place for the brief, files, timing and order record.",
+  ],
+  [
+    "Explore Directions",
+    "Review custom visual directions created around the same property, priorities and preferred style.",
+    "Compare the options for scale, circulation, maintenance and the feeling you want the space to create.",
+  ],
+  [
+    "Select and Refine",
+    "Choose one preferred direction for a focused revision within the purchased package scope.",
+    "Clear feedback helps preserve the strongest parts of the design while resolving the final details.",
+  ],
+  [
+    "Receive the Handoff",
+    "Receive the final visual direction with practical layout, plant role, material, setup and care guidance.",
+    "Use it to organize purchases and communicate the intended result to local suppliers or installers.",
+  ],
+  [
+    "Verify Locally",
+    "Confirm dimensions, quantities, utilities, drainage, permits and plant suitability before installation.",
+    "A local professional should verify every technical or safety decision that depends on site conditions.",
+  ],
+];
 
-export default function Page() {
+export default function HowItWorksPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How Orlano Gardens custom outdoor design works",
+    totalTime: "P5D",
+    step: steps.map(([name, text, detail], index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name,
+      text: `${text} ${detail}`,
+    })),
+  };
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container hero__grid"><div><div className="eyebrow">How It Works</div><h1>From your photos to a <span className="accent">clear direction.</span></h1><p className="lead">A disciplined remote process turns the real property, goals and limits into visual concepts and a practical handoff.</p><div className="btn-row"><a className="btn btn--primary" href="/get-custom-design">Start Your Project</a><a className="btn btn--outline" href="/pricing">Compare Packages</a></div><p className="service-clarifier">No site visit, physical landscaping, material delivery or installation.</p></div><div className="hero__visual"><span className="image-label">Process example</span><img className="hero__image" src="/assets/images/project-triptych.webp" alt="Three digital outdoor design examples" /><div className="hero__caption"><strong>Real photos in. Practical direction out.</strong><span>The property—not a generic template—controls the design.</span></div></div></div></section>
-      <section className="section section--dark"><div className="container"><div className="section-heading"><div><div className="eyebrow">The complete process</div><h2>Four stages. No hidden handoff.</h2></div><p>Scope is confirmed before payment, and the delivery window begins only after complete inputs arrive.</p></div><div className="process-line"><div className="process-step"><span className="process-step__number">01</span><h3>Share the space</h3><p>Send wide photos, side views, a slow walkthrough, location, measurements and priorities.</p></div><div className="process-step"><span className="process-step__number">02</span><h3>Confirm the scope</h3><p>The property is reviewed and the correct service, package and boundaries are agreed.</p></div><div className="process-step"><span className="process-step__number">03</span><h3>Compare concepts</h3><p>Receive custom visual directions, then select the strongest option for one focused revision.</p></div><div className="process-step"><span className="process-step__number">04</span><h3>Receive the handoff</h3><p>Use the final visual, plants, materials and layout guidance yourself or with a local installer.</p></div></div></div></section>
-      <section className="section"><div className="container split split--top"><div><div className="eyebrow">Step 01 / Project inputs</div><h2>Show the whole problem—not one attractive angle.</h2><p>Incomplete views produce weak assumptions. The design needs enough context to read connections, fixed features and scale.</p><ul className="check-list"><li>1–3 clear wide photographs from useful angles</li><li>A slow walking video when areas connect</li><li>Exact city, state/province and country</li><li>Measurements or a plan when scale is unclear</li><li>What must stay, move or be removed</li><li>Style, budget direction and maintenance preference</li><li>Known sun, shade, drainage and utility conditions</li></ul></div><div className="image-frame"><span className="image-label">Input example</span><img src="/assets/images/hero-comparison.webp" alt="Client space and digital concept comparison" /><p className="image-caption">Crop private details that the design does not need. Client media is not published without permission.</p></div></div></section>
-      <section className="section section--ivory"><div className="container"><div className="section-heading"><div><div className="eyebrow">Step 02 / Scope review</div><h2>The package follows the property.</h2></div><p>Do not purchase first and force a complex project into the wrong package.</p></div><div className="grid grid--3"><article className="card"><span className="card__number">01</span><h3>Small focused area</h3><p>One bed, porch corner, mailbox or narrow entry.</p><span className="tag">$29 / $49</span></article><article className="card"><span className="card__number">02</span><h3>Complete medium area</h3><p>One full front yard, backyard or patio—or two directly connected areas.</p><span className="tag">$89</span></article><article className="card"><span className="card__number">03</span><h3>Large or multi-area</h3><p>Several spaces, complex circulation, structures or a property-wide direction.</p><span className="tag">$149</span></article></div><div className="card card--gold" style={{marginTop: "1.5rem"}}><h3>Official checkout happens through Etsy only.</h3><p>The listing is confirmed after scope review. The website does not collect full payment-card details.</p></div></div></section>
-      <section className="section section--dark"><div className="container split"><div><div className="eyebrow eyebrow--gold">Step 03 / Concept development</div><h2>Several directions. One controlled decision.</h2><p>Each concept stays tied to the submitted property. Differences should test meaningful choices such as planting structure, material balance, layout and focal emphasis.</p><ul className="check-list"><li>Two or four concepts according to package</li><li>Clearly labeled AI-assisted digital visualization</li><li>Site-faithful architecture and fixed features</li><li>Practical scale and design reasoning</li></ul></div><div className="comparison-card"><img src="/assets/images/front-yard-before-after.webp" alt="Front yard before and digital design concept" /><div className="comparison-card__labels"><span>Real space</span><span>Digital Design Concept</span></div><div className="comparison-card__body"><h3>Compare before committing.</h3><p>Visualize layout and material choices before local implementation.</p></div></div></div></section>
-      <section className="section"><div className="container split"><div className="image-frame"><span className="image-label">Handoff example</span><img src="/assets/images/multi-area-handoff.webp" alt="Example outdoor design handoff" /></div><div><div className="eyebrow">Step 04 / Final handoff</div><h2>A useful next step—not a disappearing image.</h2><ul className="check-list"><li>Final selected concept direction</li><li>Plant and material list</li><li>Layout and placement guidance</li><li>Simple setup and basic care notes</li><li>One focused revision within purchased scope</li></ul><p>Delivery is typically 3–5 working days after all required information is complete. The optional $29 priority add-on is 24 hours only when feasibility is confirmed before purchase.</p></div></div></section>
-      <section className="section section--sage"><div className="container split"><div><div className="eyebrow">What the service does</div><h2>Remote design direction</h2><ul className="check-list"><li>Realistic custom concepts</li><li>Plant, material and layout guidance</li><li>Decision support before local work</li><li>A focused revision</li></ul></div><div className="card"><div className="eyebrow" style={{color: "var(--clay)"}}>What it does not do</div><h3>Physical project delivery</h3><ul className="plain-list"><li>No property visit or site measurement</li><li>No plants, products or materials</li><li>No landscaping labor or installation</li><li>No engineering, permitting or contractor service</li><li>No guarantee of plant or construction performance</li></ul></div></div></section>
-      <section className="cta-band"><div className="container cta-band__inner"><div><div className="eyebrow eyebrow--gold">Ready when the space is</div><h2>Ready to turn the space into a decision?</h2><p>Share clear photos and priorities so the correct scope can be confirmed before Etsy checkout.</p></div><a className="btn btn--gold" href="/get-custom-design">Get Your Custom Design</a></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <StructuredData data={schema} />
+      <section className="process-hero">
+        <div className="container">
+          <div className="process-hero__heading motion-rise">
+            <div className="eyebrow eyebrow--gold">A clear remote process</div>
+            <h1>From your photos to a usable outdoor plan.</h1>
+            <p className="lead">
+              Seven simple steps keep the project grounded in the real property,
+              make Etsy ordering clear and prepare the final direction for local use.
+            </p>
+          </div>
+          <div className="process-hero__image motion-rise motion-delay-1">
+            <Image
+              src="/assets/images/project-triptych.webp"
+              alt="Three stages of custom outdoor design visualization"
+              width={1500}
+              height={760}
+              priority
+            />
+          </div>
+        </div>
+      </section>
+      <section className="section process-steps-section">
+        <div className="container">
+          <div className="step-list">
+            {steps.map(([name, text, detail], index) => (
+              <article key={name}>
+                <span>0{index + 1}</span>
+                <div>
+                  <h2>{name}</h2>
+                  <p>{text}</p>
+                  <p className="step-list__detail">{detail}</p>
+                  {index === 1 && (
+                    <Link className="text-link" href="/pricing">
+                      Compare package scopes →
+                    </Link>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section section--dark">
+        <div className="container split">
+          <div>
+            <div className="eyebrow eyebrow--gold">
+              What improves the result
+            </div>
+            <h2>Complete inputs prevent avoidable guessing.</h2>
+            <ul className="check-list">
+              <li>Wide photos showing every boundary</li>
+              <li>Left and right views showing depth</li>
+              <li>Exact city and climate information</li>
+              <li>Keep, move and remove instructions</li>
+              <li>Maintenance and physical budget direction</li>
+            </ul>
+          </div>
+          <div className="card">
+            <div className="eyebrow">Service limit</div>
+            <h3>The concept is not a construction document.</h3>
+            <p>
+              Local professionals must verify measurements, utilities, drainage,
+              permits, structures, plant suitability and installation details.
+            </p>
+            <Link className="btn btn--primary" href="/custom-design-service">
+              Review Custom Design
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

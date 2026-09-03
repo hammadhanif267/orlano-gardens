@@ -1,34 +1,182 @@
+import Image from "next/image";
+import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
 import { buildMetadata } from "@/lib/metadata";
+import { absoluteUrl, premadePlans } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "Outdoor Design Services | Orlano Gardens",
-  description: "Choose remote front yard, backyard, garden bed, patio or multi-area digital design based on the real project scope.",
-  path: "/services"
+  title: "Outdoor Design Services",
+  description:
+    "Compare personalized custom outdoor design with ready made garden plans from Orlano Gardens.",
+  path: "/services",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/services",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
-
-export default function Page() {
+export default function ServicesPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Orlano Gardens design options",
+    itemListElement: [
+      {
+        "@type": "Service",
+        position: 1,
+        name: "Custom Design Service",
+        url: absoluteUrl("/custom-design-service"),
+      },
+      {
+        "@type": "Service",
+        position: 2,
+        name: "Ready-to-Use Designs",
+        url: absoluteUrl("/ready-to-use-designs"),
+      },
+    ],
+  };
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container hero__grid"><div><div className="eyebrow">Outdoor design services</div><h1>The right design starts with the <span className="accent">right scope.</span></h1><p className="lead">Choose the outdoor area that needs direction. Every service uses photos of your real space to create custom concepts before you buy plants, materials or installation.</p><div className="btn-row"><a className="btn btn--primary" href="/get-custom-design">Get Your Custom Design</a><a className="btn btn--outline" href="/pricing">Compare Packages</a></div><p className="service-clarifier">All services are remote digital design. No property visit or physical installation is included.</p></div><div className="hero__visual"><span className="image-label">Multi-area digital design concept</span><img className="hero__image" src="/assets/images/services-diptych.webp" alt="Multiple outdoor design service examples" /><div className="hero__caption"><strong>One service. One clearly defined problem.</strong><span>Choose by the area and complexity—not by guessing at a package name.</span></div></div></div></section>
-      <section className="section"><div className="container"><div className="section-heading"><div><div className="eyebrow">Choose your service</div><h2>Five clear ways to design your space.</h2></div></div><div className="grid grid--3"><a className="media-card service-card" href="/services/front-yard-design"><img src="/assets/images/front-yard-card.webp" alt="Front Yard Design design example" /><span className="image-label">Digital Design Concept</span><span className="media-card__body"><span className="eyebrow">01 / Front of property</span><h3>Front Yard Design</h3><p>Foundation beds, entrances, driveway edges and curb appeal.</p></span><span className="media-card__arrow" aria-hidden="true">→</span></a><a className="media-card service-card" href="/services/backyard-design"><img src="/assets/images/backyard-card.webp" alt="Backyard Design design example" /><span className="image-label">Digital Design Concept</span><span className="media-card__body"><span className="eyebrow">02 / Private outdoor space</span><h3>Backyard Design</h3><p>Planting, privacy, seating zones and practical outdoor flow.</p></span><span className="media-card__arrow" aria-hidden="true">→</span></a><a className="media-card service-card" href="/services/garden-bed-entry"><img src="/assets/images/garden-bed-card.webp" alt="Garden Bed + Entry design example" /><span className="image-label">Digital Design Concept</span><span className="media-card__body"><span className="eyebrow">03 / Focused small area</span><h3>Garden Bed + Entry</h3><p>One bed, porch corner, mailbox or narrow entry route.</p></span><span className="media-card__arrow" aria-hidden="true">→</span></a><a className="media-card service-card" href="/services/patio-outdoor-living"><img src="/assets/images/patio-card.webp" alt="Patio + Outdoor Living design example" /><span className="image-label">Digital Design Concept</span><span className="media-card__body"><span className="eyebrow">04 / Function + gathering</span><h3>Patio + Outdoor Living</h3><p>Pavers, pergolas, seating layouts and surrounding planting.</p></span><span className="media-card__arrow" aria-hidden="true">→</span></a><a className="media-card service-card" href="/services/multi-area-property"><img src="/assets/images/multi-area-card.webp" alt="Multi-Area Property design example" /><span className="image-label">Digital Design Concept</span><span className="media-card__body"><span className="eyebrow">05 / Connected spaces</span><h3>Multi-Area Property</h3><p>Two or more spaces that need one coordinated direction.</p></span><span className="media-card__arrow" aria-hidden="true">→</span></a></div></div></section>
-      <section className="section section--ivory"><div className="container"><div className="section-heading"><div><div className="eyebrow">Choose by scope</div><h2>Choose only the scope you need.</h2></div><p>The size and complexity of the property should control the package.</p></div><div className="grid grid--3"><article className="card"><span className="card__number">01</span><h3>Small focused area</h3><p className="display accent" style={{fontSize: "2rem"}}>$29–$49</p><p>One garden bed, porch corner, mailbox area or narrow entry bed.</p><span className="tag">2 or 4 concepts</span></article><article className="card"><span className="card__number">02</span><h3>Complete connected area</h3><p className="display accent" style={{fontSize: "2rem"}}>$89</p><p>One medium front yard, backyard or patio—or two directly connected areas.</p><span className="tag">4 concepts</span></article><article className="card"><span className="card__number">03</span><h3>Multiple or complex areas</h3><p className="display accent" style={{fontSize: "2rem"}}>$149</p><p>A larger property or several spaces that must work as one design.</p><span className="tag">Custom scope</span></article></div></div></section>
-      <section className="section section--dark"><div className="container split"><div><div className="eyebrow eyebrow--gold">Included with the design</div><h2>Every package gives you a usable next step.</h2><p>The number of concepts and project scale change by package. The design logic and practical handoff remain consistent.</p><img src="/assets/images/project-triptych.webp" alt="Three outdoor digital design concepts" style={{borderRadius: "18px", marginTop: "2rem"}} /></div><div className="card"><div className="eyebrow">What you receive</div><h3>Clear visual direction</h3><ul className="check-list"><li>Custom concept images</li><li>Plant and material direction</li><li>Layout and placement guidance</li><li>Setup and care notes</li><li>One focused revision</li></ul><p className="small muted">Typical delivery: 3–5 working days after complete project information.</p></div></div></section>
-      <section className="section"><div className="container"><div className="section-heading"><div><div className="eyebrow">The same process for every service</div><h2>Simple from first photo to final handoff.</h2></div><p>The package changes the scope and number of concepts. The experience stays consistent.</p></div><div className="process-line"><div className="process-step"><span className="process-step__number">01</span><h3>Send the space</h3><p>Clear photos, location, measurements and keep-or-remove notes.</p></div><div className="process-step"><span className="process-step__number">02</span><h3>Review concepts</h3><p>Compare custom directions made for the submitted area.</p></div><div className="process-step"><span className="process-step__number">03</span><h3>Choose one</h3><p>Select the strongest direction for your style and priorities.</p></div><div className="process-step"><span className="process-step__number">04</span><h3>Receive the plan</h3><p>Use the final guidance yourself or with a local installer.</p></div></div></div></section>
-      <section className="section section--sage"><div className="container split"><div><div className="eyebrow">Before choosing</div><h2>Remove uncertainty before checkout.</h2><p>Send your photos first when the scope is not obvious. The package should follow the actual property—not the other way around.</p><a className="btn btn--primary" href="/get-custom-design">Send Your Project Details</a></div><div className="accordion"><div className="accordion__item"><button className="accordion__trigger" aria-expanded="true" aria-controls="service-faq-1" data-accordion-trigger="">What if I choose the wrong service?<span className="accordion__icon"></span></button><div className="accordion__panel" id="service-faq-1"><div>Send your photos first. The scope should be reviewed before checkout.</div></div></div><div className="accordion__item"><button className="accordion__trigger" aria-expanded="false" aria-controls="service-faq-2" data-accordion-trigger="">Can one package cover two areas?<span className="accordion__icon"></span></button><div className="accordion__panel" id="service-faq-2" hidden><div>The $89 package can cover two directly connected areas. Separate or complex spaces may require multi-area scope.</div></div></div><div className="accordion__item"><button className="accordion__trigger" aria-expanded="false" aria-controls="service-faq-3" data-accordion-trigger="">Does the package include installation?<span className="accordion__icon"></span></button><div className="accordion__panel" id="service-faq-3" hidden><div>No. Every service is remote digital outdoor design only.</div></div></div></div></div></section>
-      <section className="cta-band"><div className="container cta-band__inner"><div><div className="eyebrow eyebrow--gold">Ready when the space is</div><h2>Not sure what to choose?</h2><p>Send the photos first. The correct service and package should be confirmed before payment.</p></div><a className="btn btn--gold" href="/get-custom-design">Get Your Custom Design</a></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <StructuredData data={schema} />
+      <section className="services-hero">
+        <div className="container">
+          <div className="services-hero__intro motion-rise">
+            <div className="eyebrow eyebrow--gold">Two clear design paths</div>
+            <h1>Choose custom direction or a ready made starting point.</h1>
+            <p className="lead">
+              Do not choose by yard type. Choose by whether the design must
+              respond to your exact property.
+            </p>
+          </div>
+          <div className="services-hero__choices">
+            <Link
+              className="service-path service-path--light"
+              href="/custom-design-service"
+            >
+              <span>01</span>
+              <div>
+                <small>Made for your property</small>
+                <h2>Custom Design Service</h2>
+                <p>
+                  Personalized concepts created from your photos, location,
+                  priorities and preferred style.
+                </p>
+                <strong>Explore custom design →</strong>
+              </div>
+              <Image
+                src="/assets/images/services-diptych.webp"
+                alt="Custom outdoor design examples"
+                width={900}
+                height={600}
+                priority
+              />
+            </Link>
+            <Link
+              className="service-path service-path--gold"
+              href="/ready-to-use-designs"
+            >
+              <span>02</span>
+              <div>
+                <small>Ready made garden plans</small>
+                <h2>Ready-to-Use Designs</h2>
+                <p>
+                  Shop focused garden plans created for compatible common
+                  outdoor spaces.
+                </p>
+                <strong>Browse ready-to-use designs →</strong>
+              </div>
+              <Image
+                src="/assets/images/focused-bed-handoff.webp"
+                alt="Premade garden design"
+                width={900}
+                height={600}
+                priority
+              />
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">Direct comparison</div>
+              <h2>Know what changes before choosing.</h2>
+            </div>
+          </div>
+          <div
+            className="comparison-table"
+            role="table"
+            aria-label="Custom and ready-to-use design comparison"
+          >
+            <div
+              className="comparison-table__row comparison-table__head"
+              role="row"
+            >
+              <span role="columnheader">Feature</span>
+              <strong role="columnheader">Custom Design</strong>
+              <strong role="columnheader">Ready-to-Use Design</strong>
+            </div>
+            {[
+              ["Based on your photos", "Yes", "No"],
+              ["Made for the exact property", "Yes", "No"],
+              ["Personalized concepts", "Yes", "No"],
+              ["Focused revision", "Included", "Not included"],
+              [
+                "Best for",
+                "Unique spaces and priorities",
+                "Compatible common spaces",
+              ],
+              ["Purchase route", "Exact Etsy package", "Product page and Etsy"],
+            ].map((row) => (
+              <div className="comparison-table__row" role="row" key={row[0]}>
+                {row.map((cell, index) => (
+                  <span
+                    role="cell"
+                    key={cell}
+                    className={index === 0 ? "comparison-table__label" : ""}
+                  >
+                    {cell}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section section--soft">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">Premade garden plans</div>
+              <h2>Premade plans for the spaces clients repeatedly need.</h2>
+            </div>
+            <p>
+              Browse the collection by space type, then open a product page to
+              review specifications, included direction and the Etsy purchase route.
+            </p>
+          </div>
+          <div className="premade-square-grid">
+            {premadePlans.map((plan) => (
+              <Link
+                className="premade-square"
+                href={`/ready-to-use-designs/${plan.slug}`}
+                key={plan.slug}
+              >
+                <Image
+                  src={plan.image}
+                  alt={`${plan.name} real space design example`}
+                  width={760}
+                  height={520}
+                  loading="lazy"
+                />
+                <span className="premade-square__body">
+                  <span className="tag">Premade design</span>
+                  <h3>{plan.name}</h3>
+                  <p>{plan.summary}</p>
+                  <strong>View design details →</strong>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

@@ -1,30 +1,119 @@
 import Link from "next/link";
+import { guides } from "@/lib/guides";
 import { buildMetadata } from "@/lib/metadata";
+import { premadePlans } from "@/lib/site";
 
 export const metadata = buildMetadata({
-  title: "Site Map | Orlano Gardens",
-  description: "A complete human-readable index of every Orlano Gardens website page.",
-  path: "/site-map"
+  title: "HTML Site Map",
+  description:
+    "Browse every Orlano Gardens service, portfolio study, garden guide, business page, and policy.",
+  path: "/site-map",
 });
 
-const structuredData = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"Orlano Gardens",
-  "url":"https://orlanogardens.com/site-map",
-  "email":"orlanogardens@gmail.com",
-  "sameAs":["https://orlanogardens.etsy.com/","https://www.instagram.com/orlanogardens","https://www.facebook.com/orlanogardens"],
-  "description":"Remote digital outdoor design created from client-supplied property photos."
-};
+const groups = [
+  [
+    "Start here",
+    [
+      ["Home", "/"],
+      ["Services", "/services"],
+      ["Portfolio", "/portfolio"],
+      ["How It Works", "/how-it-works"],
+      ["Pricing", "/pricing"],
+    ],
+  ],
+  [
+    "Business",
+    [
+      ["About the Studio", "/about"],
+      ["FAQ", "/faq"],
+      ["Contact", "/contact"],
+    ],
+  ],
+  [
+    "Services",
+    [
+      ["Custom Design Service", "/custom-design-service"],
+      ["Ready-to-Use Designs", "/ready-to-use-designs"],
+    ],
+  ],
+  [
+    "Policies",
+    [
+      ["Privacy Policy", "/privacy-policy"],
+      ["Cookie Policy", "/cookie-policy"],
+      ["Terms and Conditions", "/terms-and-conditions"],
+      ["Disclaimer", "/disclaimer"],
+      ["Accessibility", "/accessibility"],
+    ],
+  ],
+];
 
-export default function Page() {
+export default function SiteMapPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <main id="main-content">
-      <section className="hero"><div className="container"><div className="eyebrow">Site Map</div><h1>Every page. No dead ends.</h1><p className="lead">Use this index to reach every service, project, guide and policy page in the website.</p></div></section>
-      <section className="section"><div className="container"><div className="grid grid--2"><article className="card"><h2 style={{fontSize: "2rem"}}>Main</h2><ul className="plain-list"><li><Link href="/">Home</Link></li><li><a href="/services">Services</a></li><li><a href="/projects">Projects</a></li><li><a href="/testimonials">Testimonials</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/garden-guides">Garden Guides</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/faq">FAQ</a></li><li><a href="/get-custom-design">Get Your Custom Design</a></li></ul></article><article className="card"><h2 style={{fontSize: "2rem"}}>Services</h2><ul className="plain-list"><li><a href="/services/front-yard-design">Front Yard Design</a></li><li><a href="/services/backyard-design">Backyard Design</a></li><li><a href="/services/garden-bed-entry">Garden Bed + Entry</a></li><li><a href="/services/patio-outdoor-living">Patio + Outdoor Living</a></li><li><a href="/services/multi-area-property">Multi-Area Property</a></li></ul></article><article className="card"><h2 style={{fontSize: "2rem"}}>Projects + Guides</h2><ul className="plain-list"><li><a href="/projects/backyard-zoning-case-study">Backyard Zoning Case Study</a></li><li><a href="/garden-guides/front-yard-bed-five-years">Front Yard Bed in Five Years</a></li><li><a href="/garden-guides/backyard-zoning">Backyard Zoning</a></li><li><a href="/garden-guides/low-maintenance-front-yard">Low-Maintenance Front Yards</a></li><li><a href="/garden-guides/choosing-landscape-stone">Choosing Landscape Stone</a></li></ul></article><article className="card"><h2 style={{fontSize: "2rem"}}>Legal + Access</h2><ul className="plain-list"><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/cookie-policy">Cookie Policy</a></li><li><a href="/terms-and-conditions">Terms + Conditions</a></li><li><a href="/disclaimer">Disclaimer</a></li><li><a href="/accessibility">Accessibility</a></li></ul></article></div></div></section>
-      </main>
-    </>
+    <main id="main-content">
+      <section className="legal-hero">
+        <div className="container--narrow">
+          <div className="eyebrow eyebrow--gold">Navigation</div>
+          <h1>Site Map</h1>
+          <p className="lead">
+            Every indexable page in one readable directory.
+          </p>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="grid grid--4">
+            {groups.map(([title, links]) => (
+              <section className="card" key={title}>
+                <h2 style={{ fontSize: "2rem" }}>{title}</h2>
+                <ul className="plain-list">
+                  {links.map(([label, href]) => (
+                    <li key={href}>
+                      <Link href={href}>{label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+          <section className="section section--tight">
+            <div className="section-heading">
+              <div>
+                <div className="eyebrow">Garden guides</div>
+                <h2>{guides.length} articles</h2>
+              </div>
+            </div>
+            <div className="grid grid--3">
+              {guides.map((guide) => (
+                <Link
+                  className="card"
+                  href={`/garden-guides/${guide.slug}`}
+                  key={guide.slug}
+                >
+                  <strong>{guide.title}</strong>
+                  <span>{guide.category}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+          <section className="section section--tight">
+            <div className="section-heading">
+              <div>
+                <div className="eyebrow">Premade designs</div>
+                <h2>Plan examples</h2>
+              </div>
+            </div>
+            <div className="grid grid--3">
+              {premadePlans.map((plan) => (
+                <Link className="card" href={`/ready-to-use-designs/${plan.slug}`} key={plan.slug}>
+                  <strong>{plan.name}</strong>
+                  <span>{plan.type}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
   );
 }
