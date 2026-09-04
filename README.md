@@ -10,14 +10,22 @@ npm ci
 npm run dev:next
 ```
 
-## Validation and export
+## Validation and build
 
 ```bash
 npm run check
 npm start
 ```
 
-The production export is written to `out/`. The Sites project binding is stored in `.openai/hosting.json`.
+## Hosting
+
+This project uses the MongoDB-backed `/admin` login (email/password + OTP,
+JWT session cookie). Those API routes need a real Node.js server at runtime,
+so the site must be deployed on a Node-capable host (Vercel, Render, Railway,
+a VPS running `next start`, etc.) — plain static/shared hosting will not run
+the admin login or OTP endpoints. Set `MONGODB_URI`, `ADMIN_PASSWORD`,
+`AUTH_SECRET` and the SMTP variables from `.env.example` on that host (see
+`ADMIN_SETUP.md`).
 
 ## Site structure
 

@@ -3844,3 +3844,9 @@ body.route-entering main {
     opacity: 1;
   }
 }
+/* Visual CMS selection state inside the same-origin admin preview. */
+.cms-selected { outline: 3px solid #c9993a !important; outline-offset: 3px !important; cursor: pointer !important; }
+.cms-added-card { max-width:1100px; margin:24px auto; padding:22px; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--white); box-shadow:var(--shadow-sm); }
+.cms-added-card img { display:block; width:100%; max-height:520px; object-fit:cover; border-radius:var(--radius-sm); margin-bottom:18px; }
+.cms-added-card h3 { margin:0 0 8px; }
+.cms-added-card p { margin:0 0 16px; }

@@ -1,8 +1,13 @@
+"use client";
 import Link from "next/link";
 import { ETSY_REVIEWS_URL, verifiedReviews } from "@/lib/site";
+import {useEffect,useState} from "react";
 
 export default function ReviewProof({ compact = false }) {
-  const reviewLoop = [...verifiedReviews, ...verifiedReviews];
+  const [cmsReviews,setCmsReviews]=useState([]);
+  useEffect(()=>{fetch("/api/cms/reviews").then(r=>r.json()).then(x=>setCmsReviews(Array.isArray(x)?x:[]));},[]);
+  const reviews = cmsReviews.length ? cmsReviews : verifiedReviews;
+  const reviewLoop = [...reviews, ...reviews];
 
   return (
     <section
@@ -26,7 +31,7 @@ export default function ReviewProof({ compact = false }) {
             <figure
               className="review-card"
               key={`${review.name}-${index}`}
-              aria-hidden={index >= verifiedReviews.length ? "true" : undefined}
+              aria-hidden={index >= reviews.length ? "true" : undefined}
             >
               <div className="review-card__stars" aria-hidden="true">★★★★★</div>
               <blockquote>“{review.quote}”</blockquote>
